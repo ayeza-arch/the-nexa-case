@@ -1,0 +1,727 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AGORA — Case Challenge #1: The Community Crisis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FBF5FF;--card:#FFFEFF;--ink:#251B36;--muted:#847999;
+  --pink:#FF8FC2;--pink-deep:#D6127A;--pink-soft:#FFE6F3;
+  --yellow:#FFC94D;--yellow-deep:#B8790A;--yellow-soft:#FFF3D9;
+  --violet:#A184F7;--violet-deep:#5B2FD6;--violet-soft:#F1EAFF;
+  --green:#22B57B;--green-soft:#DEF8EC;--blue:#4CA3EA;--blue-soft:#E6F3FD;
+  --red:#FF8792;--red-deep:#D42A3C;--red-soft:#FFE6E8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:
+    radial-gradient(680px 480px at 8% -6%, #FFE1F2 0%, transparent 60%),
+    radial-gradient(620px 520px at 108% 6%, #E9DEFF 0%, transparent 58%),
+    radial-gradient(760px 620px at 50% 115%, #FFF3D2 0%, transparent 55%),
+    var(--bg);
+  background-attachment:fixed;
+  color:var(--ink);font-family:Inter,sans-serif;min-height:100vh;line-height:1.55;
+  position:relative;
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:radial-gradient(rgba(91,47,214,.09) 1.4px, transparent 1.4px);
+  background-size:26px 26px;
+  -webkit-mask-image:radial-gradient(90% 70% at 50% 20%, #000 40%, transparent 100%);
+  mask-image:radial-gradient(90% 70% at 50% 20%, #000 40%, transparent 100%);
+}
+::selection{background:var(--yellow);color:var(--ink)}
+#app{max-width:900px;margin:auto;padding:26px 18px 90px;position:relative;z-index:1}
+.case-mark{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-bottom:20px}
+.brand-block{display:flex;align-items:center;gap:10px}
+.brand-name{font-family:Fredoka;font-size:23px;font-weight:700;letter-spacing:.03em;position:relative;background:linear-gradient(100deg,var(--pink-deep) 15%,var(--violet-deep) 85%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand-name::after{content:'';display:inline-block;width:7px;height:7px;margin-left:5px;border-radius:50%;background:var(--yellow);vertical-align:middle;box-shadow:0 0 0 3px var(--yellow-soft)}
+.tag-pill{font:700 11px "Space Mono";letter-spacing:.06em;text-transform:uppercase;padding:7px 14px;border-radius:999px;border:2px solid var(--ink);background:var(--card);box-shadow:2px 2px 0 var(--ink)}
+.name-badge{background:var(--pink-deep);color:#fff;border-color:var(--ink);display:none;max-width:55vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.name-badge.show{display:inline-block}
+#progress{display:flex;gap:5px;margin-bottom:8px}
+#progress .seg{flex:1;height:9px;background:var(--card);border:2px solid #E4DEEE;border-radius:999px;transition:background-color .2s,border-color .2s}
+#progress .seg.done{background:var(--green);border-color:var(--green)}
+#progress .seg.current{background:linear-gradient(90deg,var(--yellow),var(--yellow-deep));border-color:var(--yellow-deep)}
+#progress-label{font:11px "Space Mono";color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:24px;text-align:center}
+.screen{display:none;animation:fade .4s cubic-bezier(.2,.7,.3,1)}
+.screen.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+h1{font:600 clamp(27px,6vw,40px)/1.15 Fredoka;color:var(--ink);margin-bottom:8px;letter-spacing:-.01em}
+h2{font:600 21px Fredoka;margin-bottom:14px;color:var(--pink-deep);position:relative;display:inline-block}
+h3{font-family:Fredoka}
+.eyebrow{font:700 12px "Space Mono";letter-spacing:.12em;text-transform:uppercase;color:var(--violet-deep);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.eyebrow::before{content:'';width:16px;height:2px;background:var(--violet-deep);display:inline-block;border-radius:2px}
+.lede{font-size:18px;margin:14px 0;max-width:58ch;color:#463A57}
+p{margin-bottom:14px;color:#4A4356}
+strong{color:var(--ink)}
+.btn{font:600 16px Fredoka;background:linear-gradient(135deg,var(--pink-deep),#B8127F 60%,var(--violet-deep));color:#fff;border:2px solid var(--ink);padding:14px 24px;border-radius:14px;cursor:pointer;box-shadow:4px 4px 0 var(--ink);transition:transform .12s,box-shadow .12s,filter .12s;display:inline-flex;align-items:center;gap:8px}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink);filter:brightness(1.04)}
+.btn:active{transform:none;box-shadow:2px 2px 0 var(--ink)}
+.btn:disabled{background:#E4DEEE;color:var(--muted);box-shadow:4px 4px 0 #E4DEEE;border-color:#E4DEEE;cursor:not-allowed;transform:none;filter:none}
+.btn.secondary{background:var(--card);color:var(--ink)}
+.btn-row{display:flex;gap:12px;margin-top:28px;align-items:center;flex-wrap:wrap}
+.btn:focus-visible,input:focus-visible,textarea:focus-visible,.checkitem:focus-within,.tab-card:focus-visible{outline:3px solid var(--violet-deep);outline-offset:2px}
+.card{background:var(--card);border:2px solid var(--ink);border-radius:18px;box-shadow:6px 6px 0 var(--ink);padding:24px;position:relative}
+.vitals{display:grid;grid-template-columns:repeat(2,1fr);gap:13px;margin:20px 0 26px}
+@media(min-width:600px){.vitals{grid-template-columns:repeat(4,1fr)}}
+.vital{background:var(--card);border:2px solid var(--ink);border-radius:14px;padding:14px;box-shadow:3px 3px 0 var(--ink);transition:transform .15s}
+.vital:hover{transform:translateY(-3px)}
+.vital:nth-child(1){border-top:6px solid var(--pink)}.vital:nth-child(2){border-top:6px solid var(--yellow)}.vital:nth-child(3){border-top:6px solid var(--violet)}.vital:nth-child(4){border-top:6px solid var(--blue)}
+.vital .icon{font-size:19px;display:block;margin-bottom:4px}.vital .num{font:700 22px Fredoka}.vital .lbl{font-size:11px;color:var(--muted);margin-top:2px}
+.tab-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-bottom:18px}
+.tab-card{position:relative;background:var(--card);border:2px solid var(--ink);border-radius:16px;padding:16px 10px;text-align:center;cursor:pointer;box-shadow:4px 4px 0 var(--ink);transition:transform .15s,box-shadow .15s}
+.tab-card:hover{transform:translateY(-3px);box-shadow:5px 6px 0 var(--ink)}.tab-card.active{background:var(--accent-soft);border-color:var(--accent);box-shadow:4px 4px 0 var(--accent)}
+.tc-icon{font-size:26px;margin-bottom:6px;display:block}.tc-label{font:600 12.5px Fredoka}
+.tc-check{position:absolute;top:-9px;right:-9px;width:24px;height:24px;border-radius:50%;background:var(--green);border:2px solid var(--ink);display:none;align-items:center;justify-content:center;font-size:12px;color:#fff}
+.tab-card.visited .tc-check{display:flex}
+.tab-panel{display:none}.tab-panel.active{display:block;animation:fade .3s ease}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+th{text-align:left;color:var(--muted);font-weight:700;text-transform:uppercase;font-size:10px;letter-spacing:.05em;padding:8px 10px;border-bottom:2px solid var(--ink)}
+td{padding:10px;border-bottom:1px solid #EDE7F5}
+tr:hover td{background:rgba(161,132,247,.06)}
+.callout{font-size:16px}.observation{background:var(--yellow-soft);border:2px dashed var(--yellow-deep);border-radius:12px;padding:12px 16px;margin-top:14px;font-style:italic;position:relative}
+.observation::before{content:'💡';font-style:normal;margin-right:6px}
+.quote{background:var(--violet-soft);border-left:4px solid var(--violet);border-radius:0 12px 12px 0;padding:12px 16px;margin-bottom:10px}
+.quote .who{font:700 11px "Space Mono";color:var(--violet-deep);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.stat-line{font:700 14px "Space Mono";color:var(--violet-deep);margin:6px 0;padding-left:12px;border-left:3px solid var(--violet-soft)}
+.progress-note{font:700 12px "Space Mono";color:var(--muted);margin-top:16px;text-align:center}
+.options{display:flex;flex-direction:column;gap:10px;margin:18px 0}
+.checkitem{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:2px solid var(--ink);border-radius:14px;padding:14px 16px;cursor:pointer;box-shadow:3px 3px 0 var(--ink);transition:transform .12s,background-color .12s,border-color .12s}
+.checkitem:hover{transform:translateX(2px)}
+checkitem.checked{background:var(--pink-soft);border-color:var(--pink-deep)}
+.checkitem input{margin-top:3px;accent-color:var(--pink-deep);width:17px;height:17px;flex:none}.letter{font:700 16px Fredoka;color:var(--pink-deep);flex:none;width:18px}.opt-text{font-size:15px}
+.select-count{font:700 12px "Space Mono";color:var(--muted);margin-top:4px}.select-count.full{color:var(--green)}
+.why-block{background:var(--card);border:2px dashed var(--pink-deep);border-radius:12px;padding:12px 14px;margin-top:10px}
+.why-label{font:600 13px Fredoka;color:var(--pink-deep);margin-bottom:6px}.why-input{width:100%;min-height:56px;background:var(--bg);border:2px solid var(--ink);border-radius:10px;padding:10px;font:14px Inter;resize:vertical}
+.alert{background:var(--red-soft);border:2px solid var(--red-deep);border-radius:16px;padding:18px 20px;margin-bottom:18px;box-shadow:4px 4px 0 var(--ink)}
+.pick-callout{background:var(--yellow-soft);border:2px dashed var(--yellow-deep);border-radius:12px;padding:12px 16px;margin-bottom:18px;font-weight:600}
+.budget-row{display:grid;grid-template-columns:1fr 145px;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid #EDE7F5}
+.budget-row label{font-weight:600;font-size:14px}.field{position:relative}.field span{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);font:13px "Space Mono"}
+input[id^="b-"]{width:100%;background:var(--bg);border:2px solid var(--ink);border-radius:10px;color:var(--ink);font:14px "Space Mono";padding:9px 10px 9px 32px;transition:border-color .12s}
+input[id^="b-"]:focus{border-color:var(--violet-deep)}
+.budget-total{display:flex;justify-content:space-between;align-items:center;margin-top:18px;padding:16px 18px;border-radius:16px;background:var(--card);border:2px solid var(--ink);font-family:Fredoka;box-shadow:4px 4px 0 var(--ink);transition:background-color .15s,border-color .15s}
+.budget-total .amt{font-size:19px;font-weight:700}.budget-total.balanced{border-color:var(--green);background:var(--green-soft)}.budget-total.off .amt{color:var(--red-deep)}
+.qblock{margin:44px 0 28px;border-left:6px solid var(--accent,var(--violet));overflow:visible}
+.qblock::after{content:attr(data-num);position:absolute;top:2px;right:20px;font:800 50px Fredoka;color:var(--accent-soft,var(--violet-soft));z-index:0;line-height:1;pointer-events:none;user-select:none}
+.q-tab{position:absolute;top:-18px;left:18px;width:42px;height:42px;border-radius:50%;background:var(--accent,var(--violet));border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;box-shadow:2px 2px 0 var(--ink);z-index:3}
+.q-tab-num{font:700 14px Fredoka;color:#fff}
+.q-tab-icon{position:absolute;bottom:-7px;right:-7px;width:22px;height:22px;border-radius:50%;background:var(--card);border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:11px}
+.q-head{position:relative;z-index:1;margin-top:14px}
+.qnum{font:700 11px "Space Mono";color:var(--accent-deep,var(--violet-deep));letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}.qtext{font:600 18px Fredoka;margin-bottom:10px;max-width:46ch}
+.qblock textarea{position:relative;z-index:1}
+textarea{width:100%;min-height:110px;background:var(--card);border:2px solid var(--ink);border-radius:14px;color:var(--ink);font:15px Inter;padding:14px;resize:vertical;line-height:1.5;transition:border-color .12s}
+textarea:focus{border-color:var(--violet-deep)}
+.wc{font:11px "Space Mono";color:var(--muted);margin-top:6px;text-align:right}
+.summary-block{background:var(--card);border:2px solid var(--ink);border-radius:16px;padding:18px 20px;margin-bottom:14px;box-shadow:3px 3px 0 var(--ink)}
+.summary-block h3{font:700 11px "Space Mono";color:var(--violet-deep);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px}
+.summary-block .pri-list{list-style:none}.summary-block .pri-list li{padding:4px 0}.summary-block .pri-list li::before{content:"— ";color:var(--pink-deep);font-weight:700}
+.locked-tag{display:inline-flex;align-items:center;gap:6px;font:700 11px "Space Mono";background:var(--ink);color:#fff;padding:6px 14px;border-radius:999px;margin:8px 0 4px}
+.closed-stamp{display:inline-block;font:700 18px Fredoka;color:#fff;background:var(--green);border:2px solid var(--ink);padding:10px 22px;border-radius:14px;transform:rotate(-2deg);margin:14px 0 22px;box-shadow:4px 4px 0 var(--ink)}
+.name-card{max-width:460px;margin:36px auto 0;text-align:center}.credit-line{font:11px "Space Mono";color:var(--muted);margin-top:20px}
+.maker-credit{margin-top:6px;color:var(--pink-deep);font-weight:700}
+input[type=text]{width:100%;background:var(--card);border:2px solid var(--ink);border-radius:14px;color:var(--ink);font:16px Fredoka;padding:14px 16px;text-align:center;margin:18px 0;transition:border-color .12s}
+input[type=text]:focus{border-color:var(--violet-deep)}
+
+/* evidence-board card decoration — purely visual, no structural change */
+.card::before{
+  content:'';position:absolute;top:-13px;left:50%;transform:translateX(-50%) rotate(-3deg);
+  width:64px;height:20px;border-radius:2px;pointer-events:none;z-index:2;
+  background:repeating-linear-gradient(45deg, rgba(255,255,255,.55) 0 6px, rgba(255,255,255,.2) 6px 12px), var(--yellow-soft);
+  border:1px solid rgba(37,27,54,.18);box-shadow:0 2px 3px rgba(37,27,54,.12);
+}
+.name-card::before{background:repeating-linear-gradient(45deg, rgba(255,255,255,.55) 0 6px, rgba(255,255,255,.2) 6px 12px), var(--pink-soft)}
+
+@media(max-width:500px){.budget-row{grid-template-columns:1fr}.budget-row .field{max-width:180px}.btn{width:100%;justify-content:center}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}body::before{display:none}}
+</style>
+</head>
+<body>
+<div id="app">
+
+<header class="case-mark">
+  <div class="brand-block">
+    <span class="brand-name">AGORA</span>
+  </div>
+  <span class="tag-pill">Case Challenge #1</span>
+  <span id="name-badge" class="tag-pill name-badge"></span>
+</header>
+
+<div id="progress" aria-label="Case progress"></div>
+<div id="progress-label"></div>
+
+<main>
+<section id="screen-name" class="screen active">
+  <div class="name-card card">
+    <div class="eyebrow">AGORA CASE FILE</div>
+    <h1>The Community Crisis</h1>
+    <p class="lede">You have been assigned as the strategy lead. Investigate the evidence, make the calls, rebalance the budget, and file your final report.</p>
+    <label for="participant-name"><strong>Enter your name</strong></label>
+    <input id="participant-name" type="text" maxlength="60" autocomplete="name" placeholder="Your name…" oninput="onNameInput()" onkeydown="if(event.key==='Enter')submitName()">
+    <button id="btn-name-continue" class="btn" onclick="submitName()" disabled>Start the case →</button>
+    <div class="credit-line">AGORA • Strategy &amp; Community Simulation</div>
+    <div class="credit-line maker-credit">coded by ayeza :3</div>
+  </div>
+</section>
+
+<section id="screen-welcome" class="screen">
+  <div class="eyebrow">STEP 2 — BRIEFING</div>
+  <h1>Welcome to the case.</h1>
+  <p class="lede">Nexa is growing, but growth has exposed a community crisis: participation is uneven, communication is messy, and members are asking for more meaningful ways to connect.</p>
+  <div class="vitals">
+    <div class="vital"><span class="icon">👥</span><div class="num">120</div><div class="lbl">registered members</div></div>
+    <div class="vital"><span class="icon">📅</span><div class="num">18</div><div class="lbl">events this term</div></div>
+    <div class="vital"><span class="icon">📈</span><div class="num">42%</div><div class="lbl">repeat attendance</div></div>
+    <div class="vital"><span class="icon">💰</span><div class="num">Rs. 85k</div><div class="lbl">available budget</div></div>
+  </div>
+  <div class="card">
+    <h2>Your objective</h2>
+    <p>Build a practical three-month response. You will need to identify what is actually going wrong rather than simply choosing the most obvious solution.</p>
+    <p><strong>There are no perfect answers.</strong> Your reasoning is what matters.</p>
+  </div>
+  <div class="btn-row"><button class="btn" onclick="goTo('screen-mission')">Open mission →</button></div>
+</section>
+
+<section id="screen-mission" class="screen">
+  <div class="eyebrow">STEP 3 — MISSION</div>
+  <h1>What you need to uncover</h1>
+  <p class="lede">Before making a decision, inspect all five case files. Each contains a different piece of the problem.</p>
+  <div class="card">
+    <h2>Investigation rules</h2>
+    <p>Read every file. Look for patterns across participation, feedback, digital systems, finances, and demographics.</p>
+    <div class="observation"><strong>Detective note:</strong> A single statistic rarely tells the whole story. Compare the evidence.</div>
+  </div>
+  <div class="btn-row"><button class="btn" onclick="goTo('screen-dashboard')">Enter investigation →</button></div>
+</section>
+
+<section id="screen-dashboard" class="screen">
+  <div class="eyebrow">STEP 4 — INVESTIGATION</div>
+  <h1>Case files</h1>
+  <p class="lede">Open every file before locking your priorities.</p>
+  <div id="tab-grid" class="tab-grid"></div>
+
+  <div class="tab-panel card" data-tab="participation">
+    <h2>Participation</h2>
+    <table><tr><th>Event type</th><th>Avg. attendance</th><th>Repeat rate</th></tr>
+      <tr><td>Social / casual</td><td>42</td><td>51%</td></tr>
+      <tr><td>Academic</td><td>27</td><td>39%</td></tr>
+      <tr><td>Entrepreneurship</td><td>19</td><td>34%</td></tr>
+      <tr><td>Creative / arts</td><td>31</td><td>46%</td></tr>
+    </table>
+    <div class="observation">Compare repeat rates across categories — what tends to bring members back, and what doesn't?</div>
+  </div>
+
+  <div class="tab-panel card" data-tab="feedback">
+    <h2>Member feedback</h2>
+    <div class="quote"><div class="who">Member 01</div>“I often find out about events too late.”</div>
+    <div class="quote"><div class="who">Member 02</div>“There are lots of events, but I don't know where I fit in.”</div>
+    <div class="quote"><div class="who">Member 03</div>“I'd love to work with people outside my usual field.”</div>
+    <div class="quote"><div class="who">Member 04</div>“The events themselves are usually good.”</div>
+    <div class="quote"><div class="who">Member 05</div>“Honestly, if Nexa advertised more, I'd probably show up to more things.”</div>
+    <div class="observation">Read these closely — are they all describing the same underlying issue, or is one of them a symptom rather than the cause?</div>
+  </div>
+
+  <div class="tab-panel card" data-tab="digital">
+    <h2>Digital systems</h2>
+    <div class="stat-line">REGISTRATION → 3 different forms</div>
+    <div class="stat-line">ANNOUNCEMENTS → 4 active channels</div>
+    <div class="stat-line">REMINDERS → inconsistent</div>
+    <div class="stat-line">ATTENDANCE DATA → manually combined</div>
+    <p>Members receive overlapping information in different places. Organizers also spend time reconciling registrations and attendance.</p>
+    <div class="observation">Multiple forms, multiple channels, inconsistent reminders — what does this suggest about how members actually experience Nexa day to day?</div>
+  </div>
+
+  <div class="tab-panel card" data-tab="financial">
+    <h2>Financial picture</h2>
+    <table><tr><th>Area</th><th>Current spend</th></tr>
+      <tr><td>Venue/equipment</td><td>Rs. 30,000</td></tr>
+      <tr><td>Marketing</td><td>Rs. 20,000</td></tr>
+      <tr><td>Materials</td><td>Rs. 25,000</td></tr>
+      <tr><td>Refreshments</td><td>Rs. 15,000</td></tr>
+      <tr><td>Miscellaneous</td><td>Rs. 10,000</td></tr>
+    </table>
+    <p>The current plan totals <strong>Rs. 100,000</strong>, while only <strong>Rs. 85,000</strong> is available for the next three months.</p>
+    <div class="observation">The plan already overspends by Rs. 15,000 before anything else changes — worth remembering once you reach the budget curveball.</div>
+  </div>
+
+  <div class="tab-panel card" data-tab="demographics">
+    <h2>Demographics</h2>
+    <table><tr><th>Member group</th><th>Share</th><th>Engagement</th></tr>
+      <tr><td>Business / commerce</td><td>31%</td><td>Medium</td></tr>
+      <tr><td>Science / tech</td><td>28%</td><td>High</td></tr>
+      <tr><td>Arts / humanities</td><td>24%</td><td>High</td></tr>
+      <tr><td>Other fields</td><td>17%</td><td>Low</td></tr>
+    </table>
+    <p>The membership base is diverse, but most collaborations still happen within familiar groups.</p>
+    <div class="observation">Business/Commerce is the single largest member group at 31% — cross-check that against what you saw in the Participation file.</div>
+  </div>
+
+  <div id="tabs-visited-note" class="progress-note"></div>
+  <div class="btn-row"><button id="btn-to-decision" class="btn" onclick="goTo('screen-decision')" disabled>Lock priorities →</button></div>
+</section>
+
+<section id="screen-decision" class="screen">
+  <div class="eyebrow">STEP 5 — PRIORITY DECISION</div>
+  <h1>Choose your three priorities.</h1>
+  <p class="lede">Select exactly three actions that best address the evidence you found. Then explain why each belongs in the plan.</p>
+  <div id="options-list" class="options"></div>
+  <div id="select-count" class="select-count">0 / 3 selected</div>
+  <div id="why-boxes"></div>
+  <div class="btn-row"><button class="btn secondary" onclick="goTo('screen-dashboard')">← Review evidence</button><button id="btn-to-curveball" class="btn" onclick="goTo('screen-curveball')" disabled>Face the curveball →</button></div>
+</section>
+
+<section id="screen-curveball" class="screen">
+  <div class="eyebrow">STEP 6 — BUDGET REALLOCATION</div>
+  <h1>The budget just changed.</h1>
+  <div class="alert"><strong>CURVEBALL:</strong> The next three months have a hard spending cap of <strong>Rs. 85,000</strong>. Your proposed allocation must total exactly that amount.</div>
+  <div id="pick-d-callout" class="pick-callout" style="display:none">You selected <strong>D — Spend more money on venues and equipment.</strong> You can keep that priority, but the total still cannot exceed Rs. 85,000. Make the trade-offs explicit in your final report.</div>
+  <div class="card">
+    <h2>Reallocate the funds</h2>
+    <div id="budget-form">
+      <div class="budget-row">
+        <label for="b-venue">Venue/equipment</label>
+        <div class="field"><span>Rs.</span><input type="text" id="b-venue" min="0" max="85000" step="1000" value="0" oninput="onBudgetInput()" inputmode="numeric"></div>
+      </div>
+      <div class="budget-row">
+        <label for="b-marketing">Marketing</label>
+        <div class="field"><span>Rs.</span><input type="text" id="b-marketing" min="0" max="85000" step="1000" value="0" oninput="onBudgetInput()" inputmode="numeric"></div>
+      </div>
+      <div class="budget-row">
+        <label for="b-activities">Materials</label>
+        <div class="field"><span>Rs.</span><input type="text" id="b-activities" min="0" max="85000" step="1000" value="0" oninput="onBudgetInput()" inputmode="numeric"></div>
+      </div>
+      <div class="budget-row">
+        <label for="b-community">Refreshments</label>
+        <div class="field"><span>Rs.</span><input type="text" id="b-community" min="0" max="85000" step="1000" value="0" oninput="onBudgetInput()" inputmode="numeric"></div>
+      </div>
+      <div class="budget-row">
+        <label for="b-other">Miscellaneous</label>
+        <div class="field"><span>Rs.</span><input type="text" id="b-other" min="0" max="85000" step="1000" value="0" oninput="onBudgetInput()" inputmode="numeric"></div>
+      </div>
+    </div>
+    <div id="budget-total" class="budget-total off"><span>Rs. 85,000 remaining to allocate</span><span id="budget-amt" class="amt">Rs. 0</span></div>
+  </div>
+  <div class="btn-row"><button class="btn secondary" onclick="goTo('screen-decision')">← Back</button><button id="btn-to-final" class="btn" onclick="goTo('screen-final')" disabled>Write final report →</button></div>
+</section>
+
+<section id="screen-final" class="screen">
+  <div class="eyebrow">STEP 7 — FINAL REPORT</div>
+  <h1>File your strategy.</h1>
+  <p class="lede">Answer all five questions. Be specific and practical. There is no minimum word count, but one-line answers will not show enough reasoning.</p>
+
+  <div class="qblock card" data-num="01" style="--accent:var(--violet);--accent-soft:var(--violet-soft)">
+    <div class="q-tab"><span class="q-tab-num">01</span><span class="q-tab-icon">🔍</span></div>
+    <div class="q-head"><div class="qnum">Question 01 — The Diagnosis</div><div class="qtext">Based on the evidence, what's the real problem behind Nexa's decline — not just the symptom, but the root cause?</div></div>
+    <textarea id="q1" oninput="onWordInput('q1')" placeholder="Name the root cause, not just a symptom — cite the evidence that convinced you…"></textarea><div id="q1-wc" class="wc">0 words</div>
+  </div>
+  <div class="qblock card" data-num="02" style="--accent:var(--blue);--accent-soft:var(--blue-soft)">
+    <div class="q-tab"><span class="q-tab-num">02</span><span class="q-tab-icon">🛠️</span></div>
+    <div class="q-head"><div class="qnum">Question 02 — The Plan</div><div class="qtext">What three concrete actions would you take in the next three months, and which piece of evidence justifies each one?</div></div>
+    <textarea id="q2" oninput="onWordInput('q2')" placeholder="List each action and the file that backs it up…"></textarea><div id="q2-wc" class="wc">0 words</div>
+  </div>
+  <div class="qblock card" data-num="03" style="--accent:var(--yellow-deep);--accent-soft:var(--yellow-soft)">
+    <div class="q-tab"><span class="q-tab-num">03</span><span class="q-tab-icon">💰</span></div>
+    <div class="q-head"><div class="qnum">Question 03 — The Trade-Offs</div><div class="qtext">Rs. 85,000 doesn't cover everything you'd like to do. What did you cut or scale back, and why was that the right call?</div></div>
+    <textarea id="q3" oninput="onWordInput('q3')" placeholder="Explain what you cut, what you kept, and why…"></textarea><div id="q3-wc" class="wc">0 words</div>
+  </div>
+  <div class="qblock card" data-num="04" style="--accent:var(--red-deep);--accent-soft:var(--red-soft)">
+    <div class="q-tab"><span class="q-tab-num">04</span><span class="q-tab-icon">⚠️</span></div>
+    <div class="q-head"><div class="qnum">Question 04 — The Risk</div><div class="qtext">What's the most likely way this plan fails — and what would you watch for in month one to catch it early?</div></div>
+    <textarea id="q4" oninput="onWordInput('q4')" placeholder="Name a realistic risk and an early warning sign…"></textarea><div id="q4-wc" class="wc">0 words</div>
+  </div>
+  <div class="qblock card" data-num="05" style="--accent:var(--green);--accent-soft:var(--green-soft)">
+    <div class="q-tab"><span class="q-tab-num">05</span><span class="q-tab-icon">📈</span></div>
+    <div class="q-head"><div class="qnum">Question 05 — The Outcome</div><div class="qtext">Three months from now, what specific, measurable signs would tell you this actually worked?</div></div>
+    <textarea id="q5" oninput="onWordInput('q5')" placeholder="Give measurable indicators, not just good vibes…"></textarea><div id="q5-wc" class="wc">0 words</div>
+  </div>
+
+  <div class="btn-row"><button class="btn secondary" onclick="goTo('screen-curveball')">← Back</button><button id="btn-submit" class="btn" onclick="submitCase()" disabled>File case record 🔒</button></div>
+</section>
+
+<section id="screen-summary" class="screen">
+  <div class="eyebrow">STEP 8 — CASE RECORD</div>
+  <h1>Case filed.</h1>
+  <div class="closed-stamp">✓ CASE CLOSED</div>
+  <p class="lede">Your strategy has been recorded, <strong id="summary-name"></strong>.</p>
+  <div class="progress-note" style="text-align:left;margin-top:0">Your entry has already been submitted — you don't need to do anything else. Want a copy for yourself too?</div>
+  <div class="btn-row" style="margin-top:10px">
+    <button class="btn" onclick="sendCaseEmail()">📧 Email me a copy</button>
+    <button class="btn secondary" onclick="copyCaseReport()">📋 Copy report text</button>
+  </div>
+  <div id="email-status" class="progress-note" style="text-align:left;margin-top:8px"></div>
+  <div id="summary-content"></div>
+  <div class="card">
+    <h2>Thank you for taking the challenge.</h2>
+    <p>Your strongest asset here was not choosing the “right” option — it was connecting evidence, priorities, trade-offs, and measurable outcomes.</p>
+  </div>
+</section>
+</main>
+</div>
+<iframe name="gform-target" id="gform-target" style="display:none" title="submission target" aria-hidden="true"></iframe>
+
+<script>
+'use strict';
+
+const OPTIONS=[
+ {k:'A',text:'Increase social-media advertising.'},
+ {k:'B',text:'Diversify activities across different fields.'},
+ {k:'C',text:'Reduce the number of events and focus on quality.'},
+ {k:'D',text:'Spend more money on venues and equipment.'},
+ {k:'E',text:'Create a clearer communication and registration system.'},
+ {k:'F',text:'Increase the number of entrepreneurship / business events.'},
+ {k:'G',text:'Create opportunities for members to collaborate across disciplines.'}
+];
+const BUDGET_CATEGORIES=[
+ {k:'venue',label:'Venue/equipment',amount:30000},
+ {k:'marketing',label:'Marketing',amount:20000},
+ {k:'activities',label:'Materials',amount:25000},
+ {k:'community',label:'Refreshments',amount:15000},
+ {k:'other',label:'Miscellaneous',amount:10000}
+];
+
+const TARGET_BUDGET=85000;
+const OWNER_EMAIL='nott.ayezaa@gmail.com';
+const GFORM_ACTION_URL='https://docs.google.com/forms/d/e/1FAIpQLScXK2t_JiA46Rk6gzjykcMbat2q5Nsrhj59Lnn3e497_KsFiA/formResponse';
+const GFORM_ENTRY_NAME='entry.1438632530';
+const GFORM_ENTRY_REPORT='entry.210338085';
+
+const SCREEN_ORDER=[
+ {id:'screen-name',label:'Your Name'},
+ {id:'screen-welcome',label:'Briefing'},
+ {id:'screen-mission',label:'Mission'},
+ {id:'screen-dashboard',label:'Investigation'},
+ {id:'screen-decision',label:'Priority Decision'},
+ {id:'screen-curveball',label:'Budget Reallocation'},
+ {id:'screen-final',label:'Final Report'},
+ {id:'screen-summary',label:'Case Record'}
+];
+
+const TAB_DEFS=[
+ {k:'participation',icon:'📊',label:'Participation',accent:'var(--pink)',accentSoft:'var(--pink-soft)'},
+ {k:'feedback',icon:'🗣️',label:'Feedback',accent:'var(--violet)',accentSoft:'var(--violet-soft)'},
+ {k:'digital',icon:'📱',label:'Digital',accent:'var(--blue)',accentSoft:'var(--blue-soft)'},
+ {k:'financial',icon:'💰',label:'Financial',accent:'var(--yellow-deep)',accentSoft:'var(--yellow-soft)'},
+ {k:'demographics',icon:'👥',label:'Demographics',accent:'var(--green)',accentSoft:'var(--green-soft)'}
+];
+
+const state={
+ participantName:'',
+ visitedTabs:new Set(),
+ selected:new Set(),
+ whyAnswers:{},
+ budget:{},
+ answers:{},
+ submitted:false
+};
+
+function escapeHtml(value){
+ return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+}
+
+function goTo(id){
+ const target=document.getElementById(id);
+ if(!target)return;
+ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+ target.classList.add('active');
+ renderProgress(id);
+ if(id==='screen-curveball')updateCurveballCallout();
+ window.scrollTo({top:0,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+}
+
+function renderProgress(activeId){
+ const idx=SCREEN_ORDER.findIndex(s=>s.id===activeId);
+ const rail=document.getElementById('progress');
+ rail.innerHTML='';
+ SCREEN_ORDER.forEach((s,i)=>{
+  const seg=document.createElement('div');
+  seg.className='seg '+(i<idx?'done':i===idx?'current':'');
+  rail.appendChild(seg);
+ });
+ document.getElementById('progress-label').textContent=`Step ${idx+1} of ${SCREEN_ORDER.length} — ${SCREEN_ORDER[idx].label}`;
+}
+
+function onNameInput(){
+ const input=document.getElementById('participant-name');
+ document.getElementById('btn-name-continue').disabled=!input.value.trim();
+}
+
+function submitName(){
+ const name=document.getElementById('participant-name').value.trim();
+ if(!name)return;
+ state.participantName=name;
+ const badge=document.getElementById('name-badge');
+ badge.textContent=`🕵️ ${name}`;
+ badge.classList.add('show');
+ goTo('screen-welcome');
+}
+
+function buildTabs(){
+ const grid=document.getElementById('tab-grid');
+ grid.innerHTML=TAB_DEFS.map(t=>`
+  <div class="tab-card" data-tab="${t.k}" tabindex="0" role="button" aria-label="Open ${escapeHtml(t.label)} file"
+       style="--accent:${t.accent};--accent-soft:${t.accentSoft};"
+       onclick="openTab('${t.k}')"
+       onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openTab('${t.k}')}">
+    <div class="tc-check">✓</div>
+    <span class="tc-icon">${t.icon}</span>
+    <div class="tc-label">${escapeHtml(t.label)}</div>
+  </div>`).join('');
+ openTab(TAB_DEFS[0].k);
+}
+
+function openTab(key){
+ state.visitedTabs.add(key);
+ document.querySelectorAll('.tab-card').forEach(card=>{
+  const active=card.dataset.tab===key;
+  card.classList.toggle('active',active);
+  card.classList.toggle('visited',state.visitedTabs.has(card.dataset.tab));
+ });
+ document.querySelectorAll('.tab-panel').forEach(panel=>{
+  panel.classList.toggle('active',panel.dataset.tab===key);
+ });
+ updateDashboardGate();
+}
+
+function updateDashboardGate(){
+ const n=state.visitedTabs.size;
+ const note=document.getElementById('tabs-visited-note');
+ note.textContent=n<5?`${n} / 5 case files collected — investigate the rest to continue`:'All 5 case files collected — nice work! 🎉';
+ document.getElementById('btn-to-decision').disabled=n<5;
+}
+
+function buildOptions(){
+ const list=document.getElementById('options-list');
+ list.innerHTML=OPTIONS.map(o=>`
+  <label class="checkitem" id="item-${o.k}">
+   <input type="checkbox" value="${o.k}" onchange="toggleOption('${o.k}')">
+   <span class="letter">${o.k}.</span>
+   <span class="opt-text">${escapeHtml(o.text)}</span>
+  </label>`).join('');
+}
+
+function toggleOption(k){
+ const checkbox=document.querySelector(`#item-${k} input`);
+ if(!checkbox)return;
+ if(checkbox.checked){
+  if(state.selected.size>=3){checkbox.checked=false;return}
+  state.selected.add(k);
+ }else{
+  state.selected.delete(k);
+  delete state.whyAnswers[k];
+ }
+ document.getElementById(`item-${k}`).classList.toggle('checked',checkbox.checked);
+ OPTIONS.forEach(o=>{
+  const cb=document.querySelector(`#item-${o.k} input`);
+  const disabled=!state.selected.has(o.k)&&state.selected.size>=3;
+  cb.disabled=disabled;
+  document.getElementById(`item-${o.k}`).style.opacity=disabled?'0.45':'1';
+ });
+ const count=document.getElementById('select-count');
+ count.textContent=`${state.selected.size} / 3 selected`;
+ count.classList.toggle('full',state.selected.size===3);
+ renderWhyBoxes();
+}
+
+function renderWhyBoxes(){
+ const container=document.getElementById('why-boxes');
+ const chosen=OPTIONS.filter(o=>state.selected.has(o.k));
+ container.innerHTML=chosen.map(o=>`
+  <div class="why-block">
+   <div class="why-label">Why "${o.k}. ${escapeHtml(o.text)}"?</div>
+   <textarea class="why-input" aria-label="Reason for choosing ${o.k}" oninput="onWhyInput('${o.k}',this.value)">${escapeHtml(state.whyAnswers[o.k]||'')}</textarea>
+  </div>`).join('');
+ checkDecisionValid();
+}
+
+function onWhyInput(k,value){
+ state.whyAnswers[k]=value;
+ checkDecisionValid();
+}
+
+function checkDecisionValid(){
+ const allAnswered=state.selected.size===3&&[...state.selected].every(k=>(state.whyAnswers[k]||'').trim().length>0);
+ document.getElementById('btn-to-curveball').disabled=!allAnswered;
+}
+
+function updateCurveballCallout(){
+ document.getElementById('pick-d-callout').style.display=state.selected.has('D')?'block':'none';
+}
+
+function onBudgetInput(){
+  let total=0;
+  BUDGET_CATEGORIES.forEach(c=>{
+    const el=document.getElementById(`b-${c.k}`);
+    // Allow normal typing on mobile; sanitize only the value used for calculation.
+    const raw=String(el.value||'').replace(/[^0-9]/g,'');
+    const v=raw===''?0:Number(raw);
+    state.budget[c.k]=v;
+    total+=v;
+  });
+
+  const amt=document.getElementById('budget-amt');
+  const box=document.getElementById('budget-total');
+  amt.textContent=`Rs. ${total.toLocaleString()}`;
+  const balanced=total===TARGET_BUDGET;
+  box.classList.toggle('balanced',balanced);
+  box.classList.toggle('off',!balanced);
+  box.querySelector('span').textContent=balanced?'Total allocated — balanced':
+    total>TARGET_BUDGET?`Over budget by Rs. ${(total-TARGET_BUDGET).toLocaleString()}`:
+    `Rs. ${(TARGET_BUDGET-total).toLocaleString()} remaining to allocate`;
+  document.getElementById('btn-to-final').disabled=!balanced;
+}
+
+function wordCount(str){
+ const t=str.trim();
+ return t?t.split(/\s+/).length:0;
+}
+
+function onWordInput(id){
+ const el=document.getElementById(id);
+ state.answers[id]=el.value;
+ document.getElementById(id+'-wc').textContent=`${wordCount(el.value)} words`;
+ checkFinalValid();
+}
+
+function checkFinalValid(){
+ const ids=['q1','q2','q3','q4','q5'];
+ const ok=ids.every(id=>document.getElementById(id).value.trim().length>0);
+ document.getElementById('btn-submit').disabled=!ok;
+}
+
+function submitCase(){
+ if(state.submitted||document.getElementById('btn-submit').disabled)return;
+ checkFinalValid();
+ if(document.getElementById('btn-submit').disabled)return;
+ state.submitted=true;
+ document.querySelectorAll('#screen-final textarea').forEach(el=>el.readOnly=true);
+ document.querySelectorAll('#screen-final .btn').forEach(btn=>{if(btn.id!=='btn-submit')btn.disabled=true});
+ renderSummary();
+ document.getElementById('summary-name').textContent=state.participantName;
+ goTo('screen-summary');
+ submitToGoogleForm();
+}
+
+function renderSummary(){
+ const chosen=OPTIONS.filter(o=>state.selected.has(o.k));
+ const budgetRows=BUDGET_CATEGORIES.map(c=>`<li>${escapeHtml(c.label)}: Rs. ${(state.budget[c.k]||0).toLocaleString()}</li>`).join('');
+ document.getElementById('summary-content').innerHTML=`
+  <div class="summary-block"><h3>Filed By</h3><p style="margin:0;font:600 17px Fredoka">${escapeHtml(state.participantName)}</p></div>
+  <div class="summary-block"><h3>Priorities Locked In</h3>
+   ${chosen.map(o=>`<div style="margin-bottom:12px"><div style="font-weight:700">${o.k}. ${escapeHtml(o.text)}</div><div style="color:var(--muted);font-size:14px;margin-top:2px">"${escapeHtml(state.whyAnswers[o.k]||'')}"</div></div>`).join('')}
+  </div>
+  <div class="summary-block"><h3>Budget Reallocation</h3><ul class="pri-list">${budgetRows}</ul></div>
+  <div class="summary-block"><h3>Biggest Problem</h3><p style="margin:0;white-space:pre-wrap">${escapeHtml(state.answers.q1)}</p></div>
+  <div class="summary-block"><h3>Three-Month Actions</h3><p style="margin:0;white-space:pre-wrap">${escapeHtml(state.answers.q2)}</p></div>
+  <div class="summary-block"><h3>Budget Strategy</h3><p style="margin:0;white-space:pre-wrap">${escapeHtml(state.answers.q3)}</p></div>
+  <div class="summary-block"><h3>Major Risk</h3><p style="margin:0;white-space:pre-wrap">${escapeHtml(state.answers.q4)}</p></div>
+  <div class="summary-block"><h3>Success Indicators</h3><p style="margin:0;white-space:pre-wrap">${escapeHtml(state.answers.q5)}</p></div>
+  <div class="locked-tag">🔒 Filed — no further edits</div>`;
+}
+
+function buildReportText(){
+ const chosen=OPTIONS.filter(o=>state.selected.has(o.k));
+ const priorityLines=chosen.map(o=>`${o.k}. ${o.text}\nWhy: ${state.whyAnswers[o.k]||''}`).join('\n\n');
+ const budgetLines=BUDGET_CATEGORIES.map(c=>`${c.label}: Rs. ${(state.budget[c.k]||0).toLocaleString()}`).join('\n');
+ return [
+  `Filed by: ${state.participantName}`,
+  '',
+  'PRIORITIES',
+  priorityLines,
+  '',
+  'BUDGET REALLOCATION',
+  budgetLines,
+  '',
+  'Q1 — Biggest problem:', state.answers.q1||'',
+  '',
+  'Q2 — Three-month actions:', state.answers.q2||'',
+  '',
+  'Q3 — Budget strategy:', state.answers.q3||'',
+  '',
+  'Q4 — Biggest risk:', state.answers.q4||'',
+  '',
+  'Q5 — Success indicators:', state.answers.q5||''
+ ].join('\n');
+}
+
+function submitToGoogleForm(){
+ try{
+  const form=document.createElement('form');
+  form.action=GFORM_ACTION_URL;
+  form.method='POST';
+  form.target='gform-target';
+  form.style.display='none';
+  const fields={[GFORM_ENTRY_NAME]:state.participantName,[GFORM_ENTRY_REPORT]:buildReportText()};
+  Object.entries(fields).forEach(([k,v])=>{
+   const input=document.createElement('input');
+   input.type='hidden';input.name=k;input.value=v;
+   form.appendChild(input);
+  });
+  document.body.appendChild(form);
+  form.submit();
+  setTimeout(()=>form.remove(),1500);
+ }catch(e){
+  console.error('Auto-submit to sheet failed',e);
+ }
+}
+
+function sendCaseEmail(){
+ const subject=`AGORA Case Record — ${state.participantName}`;
+ const body=buildReportText();
+ window.location.href=`mailto:${OWNER_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
+function setEmailStatus(msg){
+ const note=document.getElementById('email-status');
+ if(note)note.textContent=msg;
+}
+
+function copyCaseReport(){
+ const text=buildReportText();
+ if(navigator.clipboard&&navigator.clipboard.writeText){
+  navigator.clipboard.writeText(text)
+   .then(()=>setEmailStatus('Copied! Paste it into an email, WhatsApp, or DM to send it in.'))
+   .catch(()=>fallbackCopy(text));
+ }else{
+  fallbackCopy(text);
+ }
+}
+
+function fallbackCopy(text){
+ try{
+  const ta=document.createElement('textarea');
+  ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.focus();ta.select();
+  const ok=document.execCommand('copy');
+  document.body.removeChild(ta);
+  setEmailStatus(ok?'Copied! Paste it into an email, WhatsApp, or DM to send it in.':'Couldn\'t copy automatically — select the report above and copy it manually.');
+ }catch(e){
+  setEmailStatus('Couldn\'t copy automatically — select the report above and copy it manually.');
+ }
+}
+
+window.goTo=goTo;
+window.submitName=submitName;
+window.onNameInput=onNameInput;
+window.openTab=openTab;
+window.toggleOption=toggleOption;
+window.onBudgetInput=onBudgetInput;
+window.onWordInput=onWordInput;
+window.onWhyInput=onWhyInput;
+window.submitCase=submitCase;
+window.renderSummary=renderSummary;
+window.sendCaseEmail=sendCaseEmail;
+window.copyCaseReport=copyCaseReport;
+
+document.addEventListener('DOMContentLoaded',()=>{
+ buildTabs();
+ buildOptions();
+ onBudgetInput();
+ renderProgress('screen-name');
+});
+</script>
+</body>
+</html>
