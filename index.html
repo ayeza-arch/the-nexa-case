@@ -93,7 +93,7 @@ tr:hover td{background:rgba(161,132,247,.06)}
 .options{display:flex;flex-direction:column;gap:10px;margin:18px 0}
 .checkitem{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:2px solid var(--ink);border-radius:14px;padding:14px 16px;cursor:pointer;box-shadow:3px 3px 0 var(--ink);transition:transform .12s,background-color .12s,border-color .12s}
 .checkitem:hover{transform:translateX(2px)}
-checkitem.checked{background:var(--pink-soft);border-color:var(--pink-deep)}
+.checkitem.checked{background:var(--pink-soft);border-color:var(--pink-deep)}
 .checkitem input{margin-top:3px;accent-color:var(--pink-deep);width:17px;height:17px;flex:none}.letter{font:700 16px Fredoka;color:var(--pink-deep);flex:none;width:18px}.opt-text{font-size:15px}
 .select-count{font:700 12px "Space Mono";color:var(--muted);margin-top:4px}.select-count.full{color:var(--green)}
 .why-block{background:var(--card);border:2px dashed var(--pink-deep);border-radius:12px;padding:12px 14px;margin-top:10px}
@@ -138,6 +138,57 @@ input[type=text]:focus{border-color:var(--violet-deep)}
 
 @media(max-width:500px){.budget-row{grid-template-columns:1fr}.budget-row .field{max-width:180px}.btn{width:100%;justify-content:center}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}body::before{display:none}}
+
+/* --- expansion: notes panel --- */
+.notes-fab{position:fixed;right:16px;bottom:16px;z-index:50;font:700 13px Fredoka;background:var(--violet-deep);color:#fff;border:2px solid var(--ink);border-radius:999px;padding:12px 18px;box-shadow:4px 4px 0 var(--ink);cursor:pointer;display:none;align-items:center;gap:6px}
+.notes-fab.show{display:inline-flex}
+.notes-fab:hover{transform:translateY(-2px)}
+.notes-overlay{position:fixed;inset:0;background:rgba(37,27,54,.45);z-index:60;display:none;align-items:flex-end;justify-content:center;padding:0}
+.notes-overlay.show{display:flex}
+@media(min-width:640px){.notes-overlay{align-items:center;padding:20px}}
+.notes-panel{position:relative;background:var(--card);border:2px solid var(--ink);border-radius:20px 20px 0 0;box-shadow:0 -6px 0 var(--ink);max-width:560px;width:100%;max-height:82vh;overflow:auto;padding:24px}
+@media(min-width:640px){.notes-panel{border-radius:20px;box-shadow:6px 6px 0 var(--ink)}}
+.notes-close{position:absolute;top:14px;right:14px;background:var(--card);border:2px solid var(--ink);border-radius:50%;width:32px;height:32px;cursor:pointer;font:700 14px Fredoka}
+.notes-field{margin-bottom:14px}.notes-field label{display:block;font:700 11px "Space Mono";text-transform:uppercase;letter-spacing:.05em;color:var(--violet-deep);margin-bottom:6px}
+.notes-field textarea{min-height:64px}
+.notes-hint{font-size:12px;color:var(--muted);margin-bottom:16px;font-style:italic}
+
+/* --- expansion: member journey --- */
+.journey{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;margin:20px 0}
+.jnode{background:var(--card);border:2px solid var(--ink);border-radius:14px;padding:12px 12px;text-align:center;cursor:pointer;box-shadow:3px 3px 0 var(--ink);min-width:96px;transition:transform .12s,background-color .12s,border-color .12s}
+.jnode:hover{transform:translateY(-2px)}
+.jnode.weak{background:var(--red-soft);border-color:var(--red-deep)}
+.jnode .jn-icon{font-size:20px;display:block;margin-bottom:4px}.jnode .jn-label{font:600 12.5px Fredoka}
+.jarrow{font-size:18px;color:var(--muted)}
+
+/* --- expansion: rank selectors --- */
+.rank-row{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.rank-medal{font-size:22px;flex:none;width:34px;text-align:center}
+.rank-row select{flex:1;font:15px Inter;padding:11px 12px;border:2px solid var(--ink);border-radius:12px;background:var(--card);color:var(--ink)}
+
+/* --- expansion: stakeholders --- */
+.stakeholder-card{background:var(--card);border:2px solid var(--ink);border-radius:16px;padding:16px 18px;margin-bottom:12px;box-shadow:3px 3px 0 var(--ink);cursor:pointer;transition:transform .12s}
+.stakeholder-card:hover{transform:translateY(-2px)}
+.stakeholder-card.picked{background:var(--violet-soft);border-color:var(--violet-deep)}
+.stakeholder-role{font:700 11px "Space Mono";text-transform:uppercase;letter-spacing:.05em;color:var(--violet-deep);margin-bottom:6px}
+.stakeholder-quote{font-size:15px;font-style:italic}
+
+/* --- expansion: results dashboard --- */
+.dash-metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:20px 0}
+@media(min-width:560px){.dash-metrics{grid-template-columns:repeat(4,1fr)}}
+.dm{background:var(--card);border:2px solid var(--ink);border-radius:14px;padding:14px;text-align:center;box-shadow:3px 3px 0 var(--ink)}
+.dm .dv{font:700 19px Fredoka}.dm .dl{font-size:11px;color:var(--muted);margin-top:3px}
+
+/* --- expansion: radio-style single choice --- */
+.radio-options{display:flex;flex-direction:column;gap:10px;margin:16px 0}
+.radioitem{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:2px solid var(--ink);border-radius:14px;padding:14px 16px;cursor:pointer;box-shadow:3px 3px 0 var(--ink);transition:transform .12s,background-color .12s,border-color .12s}
+.radioitem:hover{transform:translateX(2px)}
+.radioitem.checked{background:var(--pink-soft);border-color:var(--pink-deep)}
+.radioitem input{margin-top:3px;accent-color:var(--pink-deep);width:17px;height:17px;flex:none}
+.yn-row{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
+.yn-btn{font:600 14px Fredoka;background:var(--card);border:2px solid var(--ink);border-radius:12px;padding:10px 16px;cursor:pointer;box-shadow:3px 3px 0 var(--ink);transition:transform .12s,background-color .12s}
+.yn-btn:hover{transform:translateY(-2px)}
+.yn-btn.picked{background:var(--pink-deep);color:#fff}
 </style>
 </head>
 <body>
@@ -153,6 +204,18 @@ input[type=text]:focus{border-color:var(--violet-deep)}
 
 <div id="progress" aria-label="Case progress"></div>
 <div id="progress-label"></div>
+
+<button id="notes-fab" class="notes-fab" onclick="openNotes()">🧠 Case notes</button>
+<div id="notes-overlay" class="notes-overlay" onclick="if(event.target===this)closeNotes()">
+  <div class="notes-panel">
+    <button class="notes-close" onclick="closeNotes()" aria-label="Close notes">✕</button>
+    <h2>Your case notes</h2>
+    <div class="notes-hint">💡 Jot down whatever helps you think. These don't affect your score and you can update them any time.</div>
+    <div class="notes-field"><label for="note-evidence">Evidence</label><textarea id="note-evidence" oninput="onNoteInput('evidence',this.value)" placeholder="What stood out across the case files?"></textarea></div>
+    <div class="notes-field"><label for="note-causes">Possible causes</label><textarea id="note-causes" oninput="onNoteInput('causes',this.value)" placeholder="What might actually be driving this?"></textarea></div>
+    <div class="notes-field"><label for="note-questions">Questions I still have</label><textarea id="note-questions" oninput="onNoteInput('questions',this.value)" placeholder="What's still unclear?"></textarea></div>
+  </div>
+</div>
 
 <main>
 <section id="screen-name" class="screen active">
@@ -244,8 +307,8 @@ input[type=text]:focus{border-color:var(--violet-deep)}
       <tr><td>Refreshments</td><td>Rs. 15,000</td></tr>
       <tr><td>Miscellaneous</td><td>Rs. 10,000</td></tr>
     </table>
-    <p>The current plan totals <strong>Rs. 100,000</strong>, while only <strong>Rs. 85,000</strong> is available for the next three months.</p>
-    <div class="observation">The plan already overspends by Rs. 15,000 before anything else changes — worth remembering once you reach the budget curveball.</div>
+    <p>The current plan totals <strong>Rs. 100,000</strong> across all categories.</p>
+    <div class="observation">Marketing sits well below Venue/equipment and Materials — worth cross-checking against what members actually said in the Feedback file.</div>
   </div>
 
   <div class="tab-panel card" data-tab="demographics">
@@ -261,21 +324,78 @@ input[type=text]:focus{border-color:var(--violet-deep)}
   </div>
 
   <div id="tabs-visited-note" class="progress-note"></div>
-  <div class="btn-row"><button id="btn-to-decision" class="btn" onclick="goTo('screen-decision')" disabled>Lock priorities →</button></div>
+  <div class="btn-row"><button id="btn-to-decision" class="btn" onclick="goTo('screen-interpret')" disabled>Interpret the evidence →</button></div>
+</section>
+
+<section id="screen-interpret" class="screen">
+  <div class="eyebrow">STEP 5 — INTERPRETATION</div>
+  <h1>What does this tell you?</h1>
+  <p class="lede">Here are four possible readings of the evidence. Not all of them hold up equally well. Pick the <strong>two</strong> most strongly supported by what you actually found.</p>
+  <div id="interpret-list" class="options"></div>
+  <div id="interpret-count" class="select-count">0 / 2 selected</div>
+  <div class="why-block">
+    <div class="why-label">Why do these two hold up better than the others?</div>
+    <textarea id="interpret-why" class="why-input" oninput="onInterpretWhyInput(this.value)" placeholder="Point to the specific evidence that supports your reading…"></textarea>
+  </div>
+  <div class="btn-row"><button class="btn secondary" onclick="goTo('screen-dashboard')">← Review evidence</button><button id="btn-to-journey" class="btn" onclick="goTo('screen-journey')" disabled>Trace the system →</button></div>
+</section>
+
+<section id="screen-journey" class="screen">
+  <div class="eyebrow">STEP 5 — SYSTEM DIAGNOSTIC</div>
+  <h1>Trace the member journey.</h1>
+  <p class="lede">Here's how one real event actually played out, stage by stage. Read each note, then tap every stage where information could realistically get lost.</p>
+  <div class="card">
+    <div id="journey" class="journey"></div>
+    <div id="journey-trace"></div>
+  </div>
+  <div class="why-block">
+    <div class="why-label">Optional: say more about the weak point(s) you picked</div>
+    <textarea id="journey-note" class="why-input" oninput="onJourneyNoteInput(this.value)" placeholder="What specifically breaks down there?"></textarea>
+  </div>
+  <div class="btn-row"><button class="btn secondary" onclick="goTo('screen-interpret')">← Back</button><button id="btn-to-decision2" class="btn" onclick="goTo('screen-decision')" disabled>Lock priorities →</button></div>
 </section>
 
 <section id="screen-decision" class="screen">
-  <div class="eyebrow">STEP 5 — PRIORITY DECISION</div>
+  <div class="eyebrow">STEP 6 — PRIORITY DECISION</div>
   <h1>Choose your three priorities.</h1>
   <p class="lede">Select exactly three actions that best address the evidence you found. Then explain why each belongs in the plan.</p>
   <div id="options-list" class="options"></div>
   <div id="select-count" class="select-count">0 / 3 selected</div>
   <div id="why-boxes"></div>
-  <div class="btn-row"><button class="btn secondary" onclick="goTo('screen-dashboard')">← Review evidence</button><button id="btn-to-curveball" class="btn" onclick="goTo('screen-curveball')" disabled>Face the curveball →</button></div>
+  <div class="btn-row"><button class="btn secondary" onclick="goTo('screen-journey')">← Back</button><button id="btn-to-rank" class="btn" onclick="goTo('screen-rank')" disabled>Rank them →</button></div>
 </section>
 
-<section id="screen-curveball" class="screen">
-  <div class="eyebrow">STEP 6 — BUDGET REALLOCATION</div>
+<section id="screen-rank" class="screen">
+  <div class="eyebrow">STEP 6 — RANK THEM</div>
+  <h1>You can only focus heavily on one.</h1>
+  <p class="lede">All three matter, but resources are finite. Put them in order.</p>
+  <div class="card">
+    <div class="rank-row"><span class="rank-medal">🥇</span><select id="rank1" onchange="onRankChange(0,this.value)"></select></div>
+    <div class="rank-row"><span class="rank-medal">🥈</span><select id="rank2" onchange="onRankChange(1,this.value)"></select></div>
+    <div class="rank-row"><span class="rank-medal">🥉</span><select id="rank3" onchange="onRankChange(2,this.value)"></select></div>
+  </div>
+  <div class="why-block">
+    <div class="why-label">Why is #1 more urgent than #2 and #3?</div>
+    <textarea id="rank-why" class="why-input" oninput="onRankWhyInput(this.value)" placeholder="'All three are important' isn't an answer — choose."></textarea>
+  </div>
+  <div class="btn-row"><button class="btn secondary" onclick="goTo('screen-decision')">← Back</button><button id="btn-to-notdoing" class="btn" onclick="goTo('screen-notdoing')" disabled>What are you not doing? →</button></div>
+</section>
+
+<section id="screen-notdoing" class="screen">
+  <div class="eyebrow">STEP 6 — OPPORTUNITY COST</div>
+  <h1>Every yes is also a no.</h1>
+  <p class="lede">Here are the four actions you're <em>not</em> pursuing. Which two would you most regret leaving behind?</p>
+  <div id="notdoing-list" class="options"></div>
+  <div id="notdoing-count" class="select-count">0 / 2 selected</div>
+  <div class="why-block">
+    <div class="why-label">What consequence are you accepting by leaving them behind?</div>
+    <textarea id="notdoing-why" class="why-input" oninput="onNotDoingWhyInput(this.value)" placeholder="Be honest about the trade-off…"></textarea>
+  </div>
+  <div class="btn-row"><button class="btn secondary" onclick="goTo('screen-rank')">← Back</button><button id="btn-to-budget" class="btn" onclick="goTo('screen-budget')" disabled>Face the budget →</button></div>
+</section>
+
+<section id="screen-budget" class="screen">
+  <div class="eyebrow">STEP 7 — BUDGET REALLOCATION</div>
   <h1>The budget just changed.</h1>
   <div class="alert"><strong>CURVEBALL:</strong> The next three months have a hard spending cap of <strong>Rs. 85,000</strong>. Your proposed allocation must total exactly that amount.</div>
   <div id="pick-d-callout" class="pick-callout" style="display:none">You selected <strong>D — Spend more money on venues and equipment.</strong> You can keep that priority, but the total still cannot exceed Rs. 85,000. Make the trade-offs explicit in your final report.</div>
@@ -305,13 +425,111 @@ input[type=text]:focus{border-color:var(--violet-deep)}
     </div>
     <div id="budget-total" class="budget-total off"><span>Rs. 85,000 remaining to allocate</span><span id="budget-amt" class="amt">Rs. 0</span></div>
   </div>
-  <div class="btn-row"><button class="btn secondary" onclick="goTo('screen-decision')">← Back</button><button id="btn-to-final" class="btn" onclick="goTo('screen-final')" disabled>Write final report →</button></div>
+  <div class="btn-row"><button class="btn secondary" onclick="goTo('screen-notdoing')">← Back</button><button id="btn-to-sacrifice" class="btn" onclick="goTo('screen-sacrifice')" disabled>Name the sacrifice →</button></div>
+</section>
+
+<section id="screen-sacrifice" class="screen">
+  <div class="eyebrow">STEP 7 — TRADE-OFF</div>
+  <h1>Something got the least.</h1>
+  <div class="card">
+    <p id="sacrifice-callout" class="callout"></p>
+  </div>
+  <p class="lede">Was that deliberate?</p>
+  <div class="yn-row">
+    <button type="button" class="yn-btn" id="yn-yes" onclick="setSacrificeDeliberate(true)">Yes, deliberate</button>
+    <button type="button" class="yn-btn" id="yn-no" onclick="setSacrificeDeliberate(false)">No, it just worked out that way</button>
+  </div>
+  <div class="why-block">
+    <div class="why-label">Why was this the least damaging place to cut?</div>
+    <textarea id="sacrifice-why" class="why-input" oninput="onSacrificeWhyInput(this.value)" placeholder="Explain your reasoning…"></textarea>
+  </div>
+  <div class="btn-row"><button class="btn secondary" onclick="goTo('screen-budget')">← Back</button><button id="btn-to-curveball2" class="btn" onclick="goTo('screen-curveball2')" disabled>Two weeks later… →</button></div>
+</section>
+
+<section id="screen-curveball2" class="screen">
+  <div class="eyebrow">STEP 8 — CURVEBALL #2</div>
+  <h1>Two weeks have passed.</h1>
+  <div class="alert">
+    <p id="curveball2-intro" style="margin-bottom:6px"></p>
+    <p style="margin-bottom:0">But attendance has dropped <strong>another 8%</strong>. You have <strong>Rs. 12,000</strong> remaining in emergency funds. What do you do?</p>
+  </div>
+  <div id="curveball2-options" class="radio-options"></div>
+  <div class="btn-row"><button class="btn secondary" onclick="goTo('screen-sacrifice')">← Back</button><button id="btn-to-stakeholders" class="btn" onclick="goTo('screen-stakeholders')" disabled>Face your team →</button></div>
+</section>
+
+<section id="screen-stakeholders" class="screen">
+  <div class="eyebrow">STEP 8 — YOUR TEAM ISN'T CONVINCED</div>
+  <h1>Three people disagree with you.</h1>
+  <p class="lede">Whose concern would most influence your next decision?</p>
+  <div id="stakeholder-list"></div>
+  <div class="why-block">
+    <div class="why-label">What would you say to the other two?</div>
+    <textarea id="stakeholder-response" class="why-input" oninput="onStakeholderResponseInput(this.value)" placeholder="Address their concerns directly…"></textarea>
+  </div>
+  <div class="btn-row"><button class="btn secondary" onclick="goTo('screen-curveball2')">← Back</button><button id="btn-to-month1" class="btn" onclick="goTo('screen-month1')" disabled>Begin month one →</button></div>
+</section>
+
+<section id="screen-month1" class="screen">
+  <div class="eyebrow">STEP 9 — MONTH 1: LAUNCH</div>
+  <h1>Your strategy is underway.</h1>
+  <div class="card"><p style="margin:0">Attendance is improving — but organizers report that the new process is confusing, and their workload has gone up.</p></div>
+  <p class="lede">What do you do?</p>
+  <div id="month1-options" class="radio-options"></div>
+  <div class="why-block">
+    <div class="why-label">How do you plan on implementing it?</div>
+    <textarea id="month1-implement" class="why-input" oninput="onMonth1ImplementInput(this.value)" placeholder="Walk through the practical steps…"></textarea>
+  </div>
+  <div class="btn-row"><button class="btn secondary" onclick="goTo('screen-stakeholders')">← Back</button><button id="btn-to-month2" class="btn" onclick="goTo('screen-month2')" disabled>Continue to month two →</button></div>
+</section>
+
+<section id="screen-month2" class="screen">
+  <div class="eyebrow">STEP 9 — MONTH 2: PARTICIPATION</div>
+  <h1>An unexpected result.</h1>
+  <div class="card"><p style="margin:0">A cross-disciplinary event you scheduled gets unexpectedly low turnout — even though registrations looked strong beforehand.</p></div>
+  <p class="lede">What do you do?</p>
+  <div id="month2-options" class="radio-options"></div>
+  <div class="why-block">
+    <div class="why-label">Why do you believe this is the best decision for the society?</div>
+    <textarea id="month2-why" class="why-input" oninput="onMonth2WhyInput(this.value)" placeholder="What's your reasoning?"></textarea>
+  </div>
+  <div class="btn-row"><button class="btn secondary" onclick="goTo('screen-month1')">← Back</button><button id="btn-to-month3" class="btn" onclick="goTo('screen-month3')" disabled>See the results →</button></div>
+</section>
+
+<section id="screen-month3" class="screen">
+  <div class="eyebrow">STEP 9 — MONTH 3: RESULTS</div>
+  <h1>Three months in.</h1>
+  <div class="dash-metrics">
+    <div class="dm"><div id="dm-repeat" class="dv"></div><div class="dl">repeat attendance</div></div>
+    <div class="dm"><div id="dm-participation" class="dv"></div><div class="dl">event participation</div></div>
+    <div class="dm"><div id="dm-workload" class="dv"></div><div class="dl">organizer workload</div></div>
+    <div class="dm"><div id="dm-budget" class="dv"></div><div class="dl">budget remaining</div></div>
+  </div>
+  <div class="why-block">
+    <div class="why-label">Was your strategy successful? Define success based on your original goals.</div>
+    <textarea id="m3-success" class="why-input" oninput="onM3Input('success',this.value)" placeholder="What would 'success' even mean here?"></textarea>
+  </div>
+  <div class="why-block">
+    <div class="why-label">Which metric above matters most to you? Why?</div>
+    <textarea id="m3-metric" class="why-input" oninput="onM3Input('metric',this.value)" placeholder="Not all four numbers are equally important…"></textarea>
+  </div>
+  <div class="card">
+    <h2>Look back</h2>
+    <p id="lookback-recap" style="margin-bottom:10px"></p>
+    <p class="lede" style="margin:0 0 4px;font-size:15px">Do you still believe it was the most important problem?</p>
+    <div class="yn-row">
+      <button type="button" class="yn-btn" onclick="setLookBack('Yes')">Yes</button>
+      <button type="button" class="yn-btn" onclick="setLookBack('No')">No</button>
+      <button type="button" class="yn-btn" onclick="setLookBack('Less certain')">I'm less certain</button>
+    </div>
+    <textarea id="lookback-explain" oninput="onLookBackExplainInput(this.value)" placeholder="Explain…"></textarea>
+  </div>
+  <div class="btn-row"><button class="btn secondary" onclick="goTo('screen-month2')">← Back</button><button id="btn-to-final" class="btn" onclick="goTo('screen-final')" disabled>Write final report →</button></div>
 </section>
 
 <section id="screen-final" class="screen">
-  <div class="eyebrow">STEP 7 — FINAL REPORT</div>
+  <div class="eyebrow">STEP 10 — FINAL REPORT</div>
   <h1>File your strategy.</h1>
-  <p class="lede">Answer all five questions. Be specific and practical. There is no minimum word count, but one-line answers will not show enough reasoning.</p>
+  <p class="lede">Answer all eight questions. Be specific and practical. There is no minimum word count, but one-line answers will not show enough reasoning.</p>
 
   <div class="qblock card" data-num="01" style="--accent:var(--violet);--accent-soft:var(--violet-soft)">
     <div class="q-tab"><span class="q-tab-num">01</span><span class="q-tab-icon">🔍</span></div>
@@ -338,8 +556,23 @@ input[type=text]:focus{border-color:var(--violet-deep)}
     <div class="q-head"><div class="qnum">Question 05 — The Outcome</div><div class="qtext">Three months from now, what specific, measurable signs would tell you this actually worked?</div></div>
     <textarea id="q5" oninput="onWordInput('q5')" placeholder="Give measurable indicators, not just good vibes…"></textarea><div id="q5-wc" class="wc">0 words</div>
   </div>
+  <div class="qblock card" data-num="06" style="--accent:var(--pink-deep);--accent-soft:var(--pink-soft)">
+    <div class="q-tab"><span class="q-tab-num">06</span><span class="q-tab-icon">🤔</span></div>
+    <div class="q-head"><div class="qnum">Question 06 — The Contradiction</div><div class="qtext">Which part of your strategy are you least confident about, and why?</div></div>
+    <textarea id="q6" oninput="onWordInput('q6')" placeholder="Be honest about the weakest link in your own plan…"></textarea><div id="q6-wc" class="wc">0 words</div>
+  </div>
+  <div class="qblock card" data-num="07" style="--accent:var(--red-deep);--accent-soft:var(--red-soft)">
+    <div class="q-tab"><span class="q-tab-num">07</span><span class="q-tab-icon">💥</span></div>
+    <div class="q-head"><div class="qnum">Question 07 — The Failure</div><div class="qtext">Imagine it's three months later and your strategy failed. What do you think went wrong?</div></div>
+    <textarea id="q7" oninput="onWordInput('q7')" placeholder="Write the honest post-mortem…"></textarea><div id="q7-wc" class="wc">0 words</div>
+  </div>
+  <div class="qblock card" data-num="08" style="--accent:var(--violet-deep);--accent-soft:var(--violet-soft)">
+    <div class="q-tab"><span class="q-tab-num">08</span><span class="q-tab-icon">🔁</span></div>
+    <div class="q-head"><div class="qnum">Question 08 — The Reversal</div><div class="qtext">If you had to remove ONE of your three priorities right now, which would you remove? Why?</div></div>
+    <textarea id="q8" oninput="onWordInput('q8')" placeholder="Pick one — no hedging…"></textarea><div id="q8-wc" class="wc">0 words</div>
+  </div>
 
-  <div class="btn-row"><button class="btn secondary" onclick="goTo('screen-curveball')">← Back</button><button id="btn-submit" class="btn" onclick="submitCase()" disabled>File case record 🔒</button></div>
+  <div class="btn-row"><button class="btn secondary" onclick="goTo('screen-month3')">← Back</button><button id="btn-submit" class="btn" onclick="submitCase()" disabled>File case record 🔒</button></div>
 </section>
 
 <section id="screen-summary" class="screen">
@@ -347,9 +580,13 @@ input[type=text]:focus{border-color:var(--violet-deep)}
   <h1>Case filed.</h1>
   <div class="closed-stamp">✓ CASE CLOSED</div>
   <p class="lede">Your strategy has been recorded, <strong id="summary-name"></strong>.</p>
-  <div class="progress-note" style="text-align:left;margin-top:0">Your entry doesnt not automatically get saved!! send the president the results one of the ways below.</div>
+  <div class="card" style="text-align:center;margin-bottom:20px">
+    <h2 style="margin-bottom:4px">You did an amazing job!! 🎉</h2>
+    <p style="margin:0">Seriously — that was a long, honest case to work through, and you stuck with every hard question. Well done.</p>
+  </div>
+  <div class="progress-note" style="text-align:left;margin-top:0">Tap below to send your case record — please make sure it actually sends before you close this page.</div>
   <div class="btn-row" style="margin-top:10px">
-    <button class="btn" onclick="sendCaseEmail()">📧 Email me a copy</button>
+    <a id="email-link" class="btn" href="#" target="_blank" rel="noopener">📧 Email nott.ayezaa@gmail.com</a>
     <button class="btn secondary" onclick="copyCaseReport()">📋 Copy report text</button>
   </div>
   <div id="email-status" class="progress-note" style="text-align:left;margin-top:8px"></div>
@@ -375,12 +612,67 @@ const OPTIONS=[
  {k:'F',text:'Increase the number of entrepreneurship / business events.'},
  {k:'G',text:'Create opportunities for members to collaborate across disciplines.'}
 ];
+
 const BUDGET_CATEGORIES=[
  {k:'venue',label:'Venue/equipment',amount:30000},
  {k:'marketing',label:'Marketing',amount:20000},
  {k:'activities',label:'Materials',amount:25000},
  {k:'community',label:'Refreshments',amount:15000},
  {k:'other',label:'Miscellaneous',amount:10000}
+];
+
+const INTERPRETATIONS=[
+ {k:'i1',text:'Attendance is the core problem — the numbers are down across nearly every event type.'},
+ {k:'i2',text:'It\'s not attendance that\'s the real issue — it\'s retention: people show up once and don\'t come back.'},
+ {k:'i3',text:'Business and entrepreneurship events specifically need a redesign, not simply more of them.'},
+ {k:'i4',text:'Casual and creative formats already work — the fix is doing more of what\'s already succeeding.'}
+];
+
+const JOURNEY_NODES=[
+ {k:'reg',icon:'📝',label:'Registration',note:'The Cross-Disciplinary Mixer registration form went out on a Tuesday. 47 members filled it in over the following week.'},
+ {k:'conf',icon:'✅',label:'Confirmation',note:'Confirmations weren\'t automatic — the organizer replied to people individually, in between other things.'},
+ {k:'announce',icon:'📣',label:'Announcement',note:'It was posted once on Instagram and shared into the general WhatsApp group three days before the event.'},
+ {k:'event',icon:'🎉',label:'Event',note:'31 people showed up. Check-in was a paper sign-in sheet at the door.'},
+ {k:'follow',icon:'🔁',label:'Follow-up',note:'No message went out to attendees after the event ended.'}
+];
+
+const RANK_MEDALS=['🥇','🥈','🥉'];
+
+const CURVEBALL2_INTRO={
+ A:'Your expanded advertising push has gone live.',
+ B:'Your diversified activity programme has launched.',
+ C:'Your leaner, quality-focused event programme is underway.',
+ D:'Your upgraded venues and equipment are now in use.',
+ E:'Your new communication and registration system has launched.',
+ F:'Your expanded entrepreneurship programming has launched.',
+ G:'Your new cross-disciplinary collaboration initiative has launched.'
+};
+
+const CURVEBALL2_OPTIONS=[
+ {k:'A',text:'Spend the remaining Rs. 12,000 on an emergency advertising push.'},
+ {k:'B',text:'Use it to run one large, low-cost social event to rebuild momentum.'},
+ {k:'C',text:'Hold off spending and gather member feedback first.'},
+ {k:'D',text:'Put it toward fixing whatever seems to be causing the drop in your original plan.'}
+];
+
+const STAKEHOLDERS=[
+ {k:'finance',role:'Finance Lead',quote:'"Your plan is too expensive."'},
+ {k:'events',role:'Events Lead',quote:'"You\'re focusing too much on systems and not enough on people."'},
+ {k:'community',role:'Community Lead',quote:'"This isn\'t a systems problem — it\'s a connection problem. A new platform won\'t close that gap on its own."'}
+];
+
+const M1_OPTIONS=[
+ {k:'A',text:'Pause implementation and reassess.'},
+ {k:'B',text:'Train organizers on the new process.'},
+ {k:'C',text:'Continue without changes.'},
+ {k:'D',text:'Simplify the process.'}
+];
+
+const M2_OPTIONS=[
+ {k:'A',text:'Cancel similar cross-disciplinary events for now.'},
+ {k:'B',text:'Investigate why registrants didn\'t show up.'},
+ {k:'C',text:'Reschedule it and promote it again.'},
+ {k:'D',text:'Merge it into a bigger, higher-profile event.'}
 ];
 
 const TARGET_BUDGET=85000;
@@ -394,8 +686,18 @@ const SCREEN_ORDER=[
  {id:'screen-welcome',label:'Briefing'},
  {id:'screen-mission',label:'Mission'},
  {id:'screen-dashboard',label:'Investigation'},
+ {id:'screen-interpret',label:'Interpretation'},
+ {id:'screen-journey',label:'System Diagnostic'},
  {id:'screen-decision',label:'Priority Decision'},
- {id:'screen-curveball',label:'Budget Reallocation'},
+ {id:'screen-rank',label:'Rank Priorities'},
+ {id:'screen-notdoing',label:'Opportunity Cost'},
+ {id:'screen-budget',label:'Budget Reallocation'},
+ {id:'screen-sacrifice',label:'Trade-Off'},
+ {id:'screen-curveball2',label:'Curveball #2'},
+ {id:'screen-stakeholders',label:'Your Team'},
+ {id:'screen-month1',label:'Month 1'},
+ {id:'screen-month2',label:'Month 2'},
+ {id:'screen-month3',label:'Month 3'},
  {id:'screen-final',label:'Final Report'},
  {id:'screen-summary',label:'Case Record'}
 ];
@@ -411,9 +713,32 @@ const TAB_DEFS=[
 const state={
  participantName:'',
  visitedTabs:new Set(),
+ interpret:new Set(),
+ interpretWhy:'',
+ journeyWeak:new Set(),
+ journeyNote:'',
  selected:new Set(),
  whyAnswers:{},
+ rank:[null,null,null],
+ rankWhy:'',
+ notDoing:new Set(),
+ notDoingWhy:'',
  budget:{},
+ sacrificeCategoryLabel:'',
+ sacrificeDeliberate:null,
+ sacrificeWhy:'',
+ curveball2:null,
+ stakeholder:null,
+ stakeholderResponse:'',
+ month1:null,
+ month1Implement:'',
+ month2:null,
+ month2Why:'',
+ m3Success:'',
+ m3Metric:'',
+ lookBackBelief:null,
+ lookBackExplain:'',
+ notes:{evidence:'',causes:'',questions:''},
  answers:{},
  submitted:false
 };
@@ -428,7 +753,13 @@ function goTo(id){
  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
  target.classList.add('active');
  renderProgress(id);
- if(id==='screen-curveball')updateCurveballCallout();
+ if(id==='screen-budget')updateCurveballCallout();
+ if(id==='screen-rank')buildRank();
+ if(id==='screen-notdoing')buildNotDoing();
+ if(id==='screen-sacrifice')updateSacrificeInfo();
+ if(id==='screen-curveball2')updateCurveball2Intro();
+ if(id==='screen-month3'){updateLookbackRecap();renderMonth3Dashboard();}
+ document.getElementById('notes-fab').classList.toggle('show',id!=='screen-name');
  window.scrollTo({top:0,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
 }
 
@@ -544,11 +875,350 @@ function onWhyInput(k,value){
 
 function checkDecisionValid(){
  const allAnswered=state.selected.size===3&&[...state.selected].every(k=>(state.whyAnswers[k]||'').trim().length>0);
- document.getElementById('btn-to-curveball').disabled=!allAnswered;
+ document.getElementById('btn-to-rank').disabled=!allAnswered;
+}
+
+/* ---------- Interpretation ---------- */
+function buildInterpretations(){
+ const list=document.getElementById('interpret-list');
+ list.innerHTML=INTERPRETATIONS.map(i=>`
+  <label class="checkitem" id="item-${i.k}">
+   <input type="checkbox" value="${i.k}" onchange="toggleInterpretation('${i.k}')">
+   <span class="opt-text">${escapeHtml(i.text)}</span>
+  </label>`).join('');
+}
+
+function toggleInterpretation(k){
+ const checkbox=document.querySelector(`#item-${k} input`);
+ if(!checkbox)return;
+ if(checkbox.checked){
+  if(state.interpret.size>=2){checkbox.checked=false;return}
+  state.interpret.add(k);
+ }else{
+  state.interpret.delete(k);
+ }
+ document.getElementById(`item-${k}`).classList.toggle('checked',checkbox.checked);
+ INTERPRETATIONS.forEach(i=>{
+  const cb=document.querySelector(`#item-${i.k} input`);
+  const disabled=!state.interpret.has(i.k)&&state.interpret.size>=2;
+  cb.disabled=disabled;
+  document.getElementById(`item-${i.k}`).style.opacity=disabled?'0.45':'1';
+ });
+ const count=document.getElementById('interpret-count');
+ count.textContent=`${state.interpret.size} / 2 selected`;
+ count.classList.toggle('full',state.interpret.size===2);
+ checkInterpretValid();
+}
+
+function onInterpretWhyInput(v){
+ state.interpretWhy=v;
+ checkInterpretValid();
+}
+
+function checkInterpretValid(){
+ const ok=state.interpret.size===2&&state.interpretWhy.trim().length>0;
+ document.getElementById('btn-to-journey').disabled=!ok;
+}
+
+/* ---------- Member journey ---------- */
+function buildJourney(){
+ const wrap=document.getElementById('journey');
+ wrap.innerHTML=JOURNEY_NODES.map((n,i)=>`
+  ${i>0?'<span class="jarrow">→</span>':''}
+  <div class="jnode" id="jnode-${n.k}" tabindex="0" role="button" aria-label="${escapeHtml(n.label)}"
+    onclick="toggleJourneyNode('${n.k}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleJourneyNode('${n.k}')}">
+   <span class="jn-icon">${n.icon}</span><div class="jn-label">${escapeHtml(n.label)}</div>
+  </div>`).join('');
+ const trace=document.getElementById('journey-trace');
+ trace.innerHTML=JOURNEY_NODES.map(n=>`
+  <div class="quote"><div class="who">${escapeHtml(n.label)}</div>${escapeHtml(n.note)}</div>`).join('');
+}
+
+function toggleJourneyNode(k){
+ if(state.journeyWeak.has(k))state.journeyWeak.delete(k);else state.journeyWeak.add(k);
+ document.getElementById(`jnode-${k}`).classList.toggle('weak',state.journeyWeak.has(k));
+ checkJourneyValid();
+}
+
+function onJourneyNoteInput(v){
+ state.journeyNote=v;
+}
+
+function checkJourneyValid(){
+ document.getElementById('btn-to-decision2').disabled=state.journeyWeak.size===0;
+}
+
+/* ---------- Ranking ---------- */
+function buildRank(){
+ const chosen=OPTIONS.filter(o=>state.selected.has(o.k));
+ state.rank=state.rank.map(k=>chosen.some(o=>o.k===k)?k:null);
+ [0,1,2].forEach(idx=>{
+  const sel=document.getElementById(`rank${idx+1}`);
+  const others=state.rank.filter((v,i)=>i!==idx&&v);
+  const opts=chosen.filter(o=>!others.includes(o.k));
+  sel.innerHTML=`<option value="">Choose priority #${idx+1}…</option>`+
+   opts.map(o=>`<option value="${o.k}" ${state.rank[idx]===o.k?'selected':''}>${o.k}. ${escapeHtml(o.text)}</option>`).join('');
+ });
+ checkRankValid();
+}
+
+function onRankChange(idx,val){
+ state.rank[idx]=val||null;
+ buildRank();
+}
+
+function onRankWhyInput(v){
+ state.rankWhy=v;
+ checkRankValid();
+}
+
+function checkRankValid(){
+ const ok=state.rank.every(Boolean)&&new Set(state.rank).size===3&&state.rankWhy.trim().length>0;
+ document.getElementById('btn-to-notdoing').disabled=!ok;
+}
+
+/* ---------- What are you NOT doing ---------- */
+function buildNotDoing(){
+ const rejected=OPTIONS.filter(o=>!state.selected.has(o.k));
+ state.notDoing=new Set([...state.notDoing].filter(k=>rejected.some(o=>o.k===k)));
+ const list=document.getElementById('notdoing-list');
+ list.innerHTML=rejected.map(o=>`
+  <label class="checkitem${state.notDoing.has(o.k)?' checked':''}" id="item-nd-${o.k}">
+   <input type="checkbox" value="${o.k}" ${state.notDoing.has(o.k)?'checked':''} onchange="toggleNotDoing('${o.k}')">
+   <span class="letter">${o.k}.</span>
+   <span class="opt-text">${escapeHtml(o.text)}</span>
+  </label>`).join('');
+ rejected.forEach(o=>{
+  const disabled=!state.notDoing.has(o.k)&&state.notDoing.size>=2;
+  document.querySelector(`#item-nd-${o.k} input`).disabled=disabled;
+  document.getElementById(`item-nd-${o.k}`).style.opacity=disabled?'0.45':'1';
+ });
+ document.getElementById('notdoing-count').textContent=`${state.notDoing.size} / 2 selected`;
+ checkNotDoingValid();
+}
+
+function toggleNotDoing(k){
+ const checkbox=document.querySelector(`#item-nd-${k} input`);
+ if(!checkbox)return;
+ if(checkbox.checked){
+  if(state.notDoing.size>=2){checkbox.checked=false;return}
+  state.notDoing.add(k);
+ }else{
+  state.notDoing.delete(k);
+ }
+ buildNotDoing();
+}
+
+function onNotDoingWhyInput(v){
+ state.notDoingWhy=v;
+ checkNotDoingValid();
+}
+
+function checkNotDoingValid(){
+ const ok=state.notDoing.size===2&&state.notDoingWhy.trim().length>0;
+ document.getElementById('btn-to-budget').disabled=!ok;
 }
 
 function updateCurveballCallout(){
  document.getElementById('pick-d-callout').style.display=state.selected.has('D')?'block':'none';
+}
+
+/* ---------- Budget sacrifice ---------- */
+function updateSacrificeInfo(){
+ let minCat=null;
+ BUDGET_CATEGORIES.forEach(c=>{
+  const amt=state.budget[c.k]||0;
+  if(minCat===null||amt<minCat.amt)minCat={label:c.label,amt};
+ });
+ state.sacrificeCategoryLabel=minCat?minCat.label:'';
+ document.getElementById('sacrifice-callout').innerHTML=minCat?
+  `<strong>${escapeHtml(minCat.label)}</strong> received the least funding — Rs. ${minCat.amt.toLocaleString()}.`:
+  'No allocation found — go back and set your budget first.';
+ checkSacrificeValid();
+}
+
+function setSacrificeDeliberate(val){
+ state.sacrificeDeliberate=val;
+ document.getElementById('yn-yes').classList.toggle('picked',val===true);
+ document.getElementById('yn-no').classList.toggle('picked',val===false);
+ checkSacrificeValid();
+}
+
+function onSacrificeWhyInput(v){
+ state.sacrificeWhy=v;
+ checkSacrificeValid();
+}
+
+function checkSacrificeValid(){
+ const ok=state.sacrificeDeliberate!==null&&state.sacrificeWhy.trim().length>0;
+ document.getElementById('btn-to-curveball2').disabled=!ok;
+}
+
+/* ---------- Curveball #2 ---------- */
+function updateCurveball2Intro(){
+ const rank1=state.rank[0];
+ document.getElementById('curveball2-intro').textContent=CURVEBALL2_INTRO[rank1]||'Your strategy has been underway for two weeks.';
+ const wrap=document.getElementById('curveball2-options');
+ if(!wrap.dataset.built){
+  wrap.innerHTML=CURVEBALL2_OPTIONS.map(o=>`
+   <label class="radioitem" id="item-cb2-${o.k}">
+    <input type="radio" name="curveball2" value="${o.k}" onchange="selectCurveball2('${o.k}')">
+    <span class="opt-text">${escapeHtml(o.text)}</span>
+   </label>`).join('');
+  wrap.dataset.built='1';
+ }
+}
+
+function selectCurveball2(k){
+ state.curveball2=k;
+ document.querySelectorAll('#curveball2-options .radioitem').forEach(el=>el.classList.remove('checked'));
+ document.getElementById(`item-cb2-${k}`).classList.add('checked');
+ document.getElementById('btn-to-stakeholders').disabled=false;
+}
+
+/* ---------- Stakeholders ---------- */
+function buildStakeholders(){
+ const wrap=document.getElementById('stakeholder-list');
+ wrap.innerHTML=STAKEHOLDERS.map(s=>`
+  <div class="stakeholder-card" id="sh-${s.k}" tabindex="0" role="button" aria-label="${escapeHtml(s.role)}"
+    onclick="pickStakeholder('${s.k}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();pickStakeholder('${s.k}')}">
+   <div class="stakeholder-role">${escapeHtml(s.role)}</div>
+   <div class="stakeholder-quote">${escapeHtml(s.quote)}</div>
+  </div>`).join('');
+}
+
+function pickStakeholder(k){
+ state.stakeholder=k;
+ document.querySelectorAll('.stakeholder-card').forEach(el=>el.classList.toggle('picked',el.id===`sh-${k}`));
+ checkStakeholderValid();
+}
+
+function onStakeholderResponseInput(v){
+ state.stakeholderResponse=v;
+ checkStakeholderValid();
+}
+
+function checkStakeholderValid(){
+ const ok=state.stakeholder&&state.stakeholderResponse.trim().length>0;
+ document.getElementById('btn-to-month1').disabled=!ok;
+}
+
+/* ---------- Month 1 & 2 ---------- */
+function buildMonthOptions(){
+ const w1=document.getElementById('month1-options');
+ if(!w1.dataset.built){
+  w1.innerHTML=M1_OPTIONS.map(o=>`
+   <label class="radioitem" id="item-m1-${o.k}">
+    <input type="radio" name="month1" value="${o.k}" onchange="selectMonth(1,'${o.k}')">
+    <span class="opt-text">${escapeHtml(o.text)}</span>
+   </label>`).join('');
+  w1.dataset.built='1';
+ }
+ const w2=document.getElementById('month2-options');
+ if(!w2.dataset.built){
+  w2.innerHTML=M2_OPTIONS.map(o=>`
+   <label class="radioitem" id="item-m2-${o.k}">
+    <input type="radio" name="month2" value="${o.k}" onchange="selectMonth(2,'${o.k}')">
+    <span class="opt-text">${escapeHtml(o.text)}</span>
+   </label>`).join('');
+  w2.dataset.built='1';
+ }
+}
+
+function selectMonth(n,k){
+ if(n===1){
+  state.month1=k;
+  document.querySelectorAll('#month1-options .radioitem').forEach(el=>el.classList.remove('checked'));
+  document.getElementById(`item-m1-${k}`).classList.add('checked');
+  checkMonth1Valid();
+ }else{
+  state.month2=k;
+  document.querySelectorAll('#month2-options .radioitem').forEach(el=>el.classList.remove('checked'));
+  document.getElementById(`item-m2-${k}`).classList.add('checked');
+  checkMonth2Valid();
+ }
+}
+
+function onMonth1ImplementInput(v){
+ state.month1Implement=v;
+ checkMonth1Valid();
+}
+function checkMonth1Valid(){
+ const ok=state.month1&&(state.month1Implement||'').trim().length>0;
+ document.getElementById('btn-to-month2').disabled=!ok;
+}
+
+function onMonth2WhyInput(v){
+ state.month2Why=v;
+ checkMonth2Valid();
+}
+function checkMonth2Valid(){
+ const ok=state.month2&&(state.month2Why||'').trim().length>0;
+ document.getElementById('btn-to-month3').disabled=!ok;
+}
+
+function renderMonth3Dashboard(){
+ let repeat=8,participation=3,workload=10;
+ const rank1=state.rank[0];
+ if(['E','G','C'].includes(rank1))repeat+=4;
+ if(['A','D'].includes(rank1))repeat-=2;
+ if(state.month1==='B'){repeat+=3;workload+=5}
+ if(state.month1==='D'){repeat+=2;workload-=4}
+ if(state.month1==='C')repeat-=3;
+ if(state.month1==='A'){workload-=6;repeat-=1}
+ if(state.month2==='B')participation+=3;
+ if(state.month2==='C')participation+=2;
+ if(state.month2==='D')participation+=1;
+ if(state.month2==='A')participation-=2;
+ if(state.sacrificeDeliberate)workload-=2;else workload+=2;
+ const cb2Spend={A:10000,B:8000,C:1000,D:6000};
+ let budget=12000-(cb2Spend[state.curveball2]!==undefined?cb2Spend[state.curveball2]:5000);
+ repeat=Math.max(-5,repeat);participation=Math.max(-5,participation);workload=Math.max(2,workload);budget=Math.max(0,budget);
+ state.month3Metrics={repeat,participation,workload,budget};
+ const fmt=v=>(v>=0?'↑ ':'↓ ')+Math.abs(v)+'%';
+ document.getElementById('dm-repeat').textContent=fmt(repeat);
+ document.getElementById('dm-participation').textContent=fmt(participation);
+ document.getElementById('dm-workload').textContent=fmt(workload);
+ document.getElementById('dm-budget').textContent='Rs. '+budget.toLocaleString();
+}
+
+function updateLookbackRecap(){
+ const rank1=OPTIONS.find(o=>o.k===state.rank[0]);
+ document.getElementById('lookback-recap').innerHTML=rank1?
+  `At the start of this case, you ranked <strong>${rank1.k}. ${escapeHtml(rank1.text)}</strong> as your top priority.`:
+  '';
+}
+
+function onM3Input(field,v){
+ if(field==='success')state.m3Success=v;else state.m3Metric=v;
+ checkMonth3Valid();
+}
+
+function setLookBack(v){
+ state.lookBackBelief=v;
+ document.querySelectorAll('#screen-month3 .yn-btn').forEach(btn=>btn.classList.toggle('picked',btn.textContent.trim()===v));
+ checkMonth3Valid();
+}
+
+function onLookBackExplainInput(v){
+ state.lookBackExplain=v;
+ checkMonth3Valid();
+}
+
+function checkMonth3Valid(){
+ const ok=state.m3Success.trim().length>0&&state.m3Metric.trim().length>0&&state.lookBackBelief&&state.lookBackExplain.trim().length>0;
+ document.getElementById('btn-to-final').disabled=!ok;
+}
+
+/* ---------- Case notes (non-scoring) ---------- */
+function openNotes(){
+ document.getElementById('notes-overlay').classList.add('show');
+}
+function closeNotes(){
+ document.getElementById('notes-overlay').classList.remove('show');
+}
+function onNoteInput(field,v){
+ state.notes[field]=v;
 }
 
 function onBudgetInput(){
@@ -571,7 +1241,7 @@ function onBudgetInput(){
   box.querySelector('span').textContent=balanced?'Total allocated — balanced':
     total>TARGET_BUDGET?`Over budget by Rs. ${(total-TARGET_BUDGET).toLocaleString()}`:
     `Rs. ${(TARGET_BUDGET-total).toLocaleString()} remaining to allocate`;
-  document.getElementById('btn-to-final').disabled=!balanced;
+  document.getElementById('btn-to-sacrifice').disabled=!balanced;
 }
 
 function wordCount(str){
@@ -587,7 +1257,7 @@ function onWordInput(id){
 }
 
 function checkFinalValid(){
- const ids=['q1','q2','q3','q4','q5'];
+ const ids=['q1','q2','q3','q4','q5','q6','q7','q8'];
  const ok=ids.every(id=>document.getElementById(id).value.trim().length>0);
  document.getElementById('btn-submit').disabled=!ok;
 }
@@ -607,34 +1277,109 @@ function submitCase(){
 
 function renderSummary(){
  const chosen=OPTIONS.filter(o=>state.selected.has(o.k));
+ const rankedList=state.rank.map((k,i)=>{
+  const o=OPTIONS.find(opt=>opt.k===k);
+  return o?`<li>${RANK_MEDALS[i]} ${o.k}. ${escapeHtml(o.text)}</li>`:'';
+ }).join('');
+ const rejected=OPTIONS.filter(o=>state.notDoing.has(o.k));
  const budgetRows=BUDGET_CATEGORIES.map(c=>`<li>${escapeHtml(c.label)}: Rs. ${(state.budget[c.k]||0).toLocaleString()}</li>`).join('');
+ const sh=STAKEHOLDERS.find(s=>s.k===state.stakeholder);
+ const cb2=CURVEBALL2_OPTIONS.find(o=>o.k===state.curveball2);
+ const m1=M1_OPTIONS.find(o=>o.k===state.month1);
+ const m2=M2_OPTIONS.find(o=>o.k===state.month2);
  document.getElementById('summary-content').innerHTML=`
   <div class="summary-block"><h3>Filed By</h3><p style="margin:0;font:600 17px Fredoka">${escapeHtml(state.participantName)}</p></div>
   <div class="summary-block"><h3>Priorities Locked In</h3>
    ${chosen.map(o=>`<div style="margin-bottom:12px"><div style="font-weight:700">${o.k}. ${escapeHtml(o.text)}</div><div style="color:var(--muted);font-size:14px;margin-top:2px">"${escapeHtml(state.whyAnswers[o.k]||'')}"</div></div>`).join('')}
   </div>
-  <div class="summary-block"><h3>Budget Reallocation</h3><ul class="pri-list">${budgetRows}</ul></div>
+  <div class="summary-block"><h3>Ranked Order</h3><ul class="pri-list" style="list-style:none;padding:0">${rankedList}</ul><p style="margin:8px 0 0;color:var(--muted);font-size:14px">${escapeHtml(state.rankWhy)}</p></div>
+  <div class="summary-block"><h3>Roads Not Taken</h3>${rejected.map(o=>`<div style="font-weight:700">❌ ${o.k}. ${escapeHtml(o.text)}</div>`).join('')}<p style="margin:8px 0 0;color:var(--muted);font-size:14px">${escapeHtml(state.notDoingWhy)}</p></div>
+  <div class="summary-block"><h3>Budget Reallocation</h3><ul class="pri-list">${budgetRows}</ul><p style="margin:8px 0 0;color:var(--muted);font-size:14px">Sacrificed: ${escapeHtml(state.sacrificeCategoryLabel)} — ${state.sacrificeDeliberate?'deliberate':'not deliberate'}. ${escapeHtml(state.sacrificeWhy)}</p></div>
+  <div class="summary-block"><h3>Curveball #2 Response</h3><p style="margin:0">${cb2?escapeHtml(cb2.text):''}</p></div>
+  <div class="summary-block"><h3>Stakeholder Response</h3><p style="margin:0 0 6px"><strong>${sh?escapeHtml(sh.role):''}</strong> ${sh?escapeHtml(sh.quote):''}</p><p style="margin:0;color:var(--muted);font-size:14px">${escapeHtml(state.stakeholderResponse)}</p></div>
+  <div class="summary-block"><h3>Three-Month Simulation</h3>
+   <p style="margin:0">Month 1: ${m1?escapeHtml(m1.text):''}</p><p style="margin:4px 0 0;color:var(--muted);font-size:14px">${escapeHtml(state.month1Implement||'')}</p>
+   <p style="margin:10px 0 0">Month 2: ${m2?escapeHtml(m2.text):''}</p><p style="margin:4px 0 0;color:var(--muted);font-size:14px">${escapeHtml(state.month2Why||'')}</p>
+   <p style="margin:10px 0 0">Month 3 results: ${state.month3Metrics?`repeat attendance ${state.month3Metrics.repeat>=0?'↑':'↓'}${Math.abs(state.month3Metrics.repeat)}%, participation ${state.month3Metrics.participation>=0?'↑':'↓'}${Math.abs(state.month3Metrics.participation)}%, workload ${state.month3Metrics.workload>=0?'↑':'↓'}${Math.abs(state.month3Metrics.workload)}%, budget remaining Rs. ${state.month3Metrics.budget.toLocaleString()}`:''}</p>
+   <p style="margin:8px 0 0;color:var(--muted);font-size:14px">Look back: ${escapeHtml(state.lookBackBelief||'')} — ${escapeHtml(state.lookBackExplain)}</p>
+  </div>
   <div class="summary-block"><h3>Biggest Problem</h3><p style="margin:0;white-space:pre-wrap">${escapeHtml(state.answers.q1)}</p></div>
   <div class="summary-block"><h3>Three-Month Actions</h3><p style="margin:0;white-space:pre-wrap">${escapeHtml(state.answers.q2)}</p></div>
   <div class="summary-block"><h3>Budget Strategy</h3><p style="margin:0;white-space:pre-wrap">${escapeHtml(state.answers.q3)}</p></div>
   <div class="summary-block"><h3>Major Risk</h3><p style="margin:0;white-space:pre-wrap">${escapeHtml(state.answers.q4)}</p></div>
   <div class="summary-block"><h3>Success Indicators</h3><p style="margin:0;white-space:pre-wrap">${escapeHtml(state.answers.q5)}</p></div>
+  <div class="summary-block"><h3>Least Confident Part</h3><p style="margin:0;white-space:pre-wrap">${escapeHtml(state.answers.q6)}</p></div>
+  <div class="summary-block"><h3>If It Failed</h3><p style="margin:0;white-space:pre-wrap">${escapeHtml(state.answers.q7)}</p></div>
+  <div class="summary-block"><h3>What You'd Remove</h3><p style="margin:0;white-space:pre-wrap">${escapeHtml(state.answers.q8)}</p></div>
   <div class="locked-tag">🔒 Filed — no further edits</div>`;
+ const link=document.getElementById('email-link');
+ if(link){
+  const subject=`AGORA Case Record — ${state.participantName}`;
+  link.href=`mailto:${OWNER_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(buildReportText())}`;
+ }
 }
 
 function buildReportText(){
  const chosen=OPTIONS.filter(o=>state.selected.has(o.k));
  const priorityLines=chosen.map(o=>`${o.k}. ${o.text}\nWhy: ${state.whyAnswers[o.k]||''}`).join('\n\n');
+ const rankedLines=state.rank.map((k,i)=>{
+  const o=OPTIONS.find(opt=>opt.k===k);
+  return o?`${RANK_MEDALS[i]} ${o.k}. ${o.text}`:'';
+ }).join('\n');
+ const rejected=OPTIONS.filter(o=>state.notDoing.has(o.k));
+ const rejectedLines=rejected.map(o=>`❌ ${o.k}. ${o.text}`).join('\n');
  const budgetLines=BUDGET_CATEGORIES.map(c=>`${c.label}: Rs. ${(state.budget[c.k]||0).toLocaleString()}`).join('\n');
+ const interpretLines=INTERPRETATIONS.filter(i=>state.interpret.has(i.k)).map(i=>`- ${i.text}`).join('\n');
+ const journeyLines=JOURNEY_NODES.filter(n=>state.journeyWeak.has(n.k)).map(n=>`- ${n.label}`).join('\n');
+ const sh=STAKEHOLDERS.find(s=>s.k===state.stakeholder);
+ const cb2=CURVEBALL2_OPTIONS.find(o=>o.k===state.curveball2);
+ const m1=M1_OPTIONS.find(o=>o.k===state.month1);
+ const m2=M2_OPTIONS.find(o=>o.k===state.month2);
+ const notesLines=[state.notes.evidence,state.notes.causes,state.notes.questions].some(Boolean)?
+  `\nCASE NOTES\nEvidence: ${state.notes.evidence||''}\nPossible causes: ${state.notes.causes||''}\nQuestions: ${state.notes.questions||''}\n`:'';
  return [
   `Filed by: ${state.participantName}`,
+  '',
+  'EVIDENCE INTERPRETATION',
+  interpretLines,
+  `Why: ${state.interpretWhy||''}`,
+  '',
+  'MEMBER JOURNEY — WEAK POINTS',
+  journeyLines,
+  state.journeyNote?`Note: ${state.journeyNote}`:'',
   '',
   'PRIORITIES',
   priorityLines,
   '',
+  'RANKED ORDER',
+  rankedLines,
+  `Why #1 over #2: ${state.rankWhy||''}`,
+  '',
+  'ROADS NOT TAKEN',
+  rejectedLines,
+  `Consequence accepted: ${state.notDoingWhy||''}`,
+  '',
   'BUDGET REALLOCATION',
   budgetLines,
+  `Sacrificed: ${state.sacrificeCategoryLabel} (${state.sacrificeDeliberate?'deliberate':'not deliberate'}) — ${state.sacrificeWhy||''}`,
   '',
+  'CURVEBALL #2',
+  cb2?cb2.text:'',
+  '',
+  'STAKEHOLDER RESPONSE',
+  sh?`Listened to: ${sh.role} — ${sh.quote}`:'',
+  `Response to the others: ${state.stakeholderResponse||''}`,
+  '',
+  'THREE-MONTH SIMULATION',
+  `Month 1: ${m1?m1.text:''}`,
+  `How implemented: ${state.month1Implement||''}`,
+  `Month 2: ${m2?m2.text:''}`,
+  `Why: ${state.month2Why||''}`,
+  state.month3Metrics?`Results — repeat attendance ${state.month3Metrics.repeat>=0?'up':'down'} ${Math.abs(state.month3Metrics.repeat)}%, event participation ${state.month3Metrics.participation>=0?'up':'down'} ${Math.abs(state.month3Metrics.participation)}%, organizer workload ${state.month3Metrics.workload>=0?'up':'down'} ${Math.abs(state.month3Metrics.workload)}%, budget remaining Rs. ${state.month3Metrics.budget.toLocaleString()}`:'',
+  `Define success: ${state.m3Success||''}`,
+  `Metric that matters most: ${state.m3Metric||''}`,
+  `Look back — still the top priority? ${state.lookBackBelief||''} — ${state.lookBackExplain||''}`,
+  notesLines,
   'Q1 — Biggest problem:', state.answers.q1||'',
   '',
   'Q2 — Three-month actions:', state.answers.q2||'',
@@ -643,7 +1388,13 @@ function buildReportText(){
   '',
   'Q4 — Biggest risk:', state.answers.q4||'',
   '',
-  'Q5 — Success indicators:', state.answers.q5||''
+  'Q5 — Success indicators:', state.answers.q5||'',
+  '',
+  'Q6 — Least confident part:', state.answers.q6||'',
+  '',
+  'Q7 — If it failed:', state.answers.q7||'',
+  '',
+  'Q8 — What you\'d remove:', state.answers.q8||''
  ].join('\n');
 }
 
@@ -715,10 +1466,36 @@ window.submitCase=submitCase;
 window.renderSummary=renderSummary;
 window.sendCaseEmail=sendCaseEmail;
 window.copyCaseReport=copyCaseReport;
+window.toggleInterpretation=toggleInterpretation;
+window.onInterpretWhyInput=onInterpretWhyInput;
+window.toggleJourneyNode=toggleJourneyNode;
+window.onJourneyNoteInput=onJourneyNoteInput;
+window.onRankChange=onRankChange;
+window.onRankWhyInput=onRankWhyInput;
+window.toggleNotDoing=toggleNotDoing;
+window.onNotDoingWhyInput=onNotDoingWhyInput;
+window.setSacrificeDeliberate=setSacrificeDeliberate;
+window.onSacrificeWhyInput=onSacrificeWhyInput;
+window.selectCurveball2=selectCurveball2;
+window.pickStakeholder=pickStakeholder;
+window.onStakeholderResponseInput=onStakeholderResponseInput;
+window.selectMonth=selectMonth;
+window.onMonth1ImplementInput=onMonth1ImplementInput;
+window.onMonth2WhyInput=onMonth2WhyInput;
+window.onM3Input=onM3Input;
+window.setLookBack=setLookBack;
+window.onLookBackExplainInput=onLookBackExplainInput;
+window.openNotes=openNotes;
+window.closeNotes=closeNotes;
+window.onNoteInput=onNoteInput;
 
 document.addEventListener('DOMContentLoaded',()=>{
  buildTabs();
  buildOptions();
+ buildInterpretations();
+ buildJourney();
+ buildStakeholders();
+ buildMonthOptions();
  onBudgetInput();
  renderProgress('screen-name');
 });
